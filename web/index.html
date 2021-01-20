@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=375,user-scalable=no" />
+        <script type="text/javascript" src="/eel.js"></script>
+        <link rel="stylesheet" type="text/css" href="./style.css">
+        <link rel="stylesheet" href="./layui/css/layui.css">
+    </head>
+    <body>
+        <div>
+            <form class="layui-form" action="">
+                <div class="header">
+                    <div class="header_empty">
+                    </div>
+                    <div class="header_left">
+                        <label class="layui-form-label" style="color: skyblue">选择串口:</label>
+                        <div class="layui-input-block" style="width: 145px">
+                            <select name="usart_name" id="usart_name" lay-verify="required" lay-filter="choose_port">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="header_center">
+                        <label class="layui-form-label" style="color: skyblue">波特率:</label>
+                        <div class="layui-input-block" style="width: 145px">
+                            <select name="baud_rate" lay-verify="required">
+                                <option value="115200">115200</option>
+                                <option value="1200">1200</option>
+                                <option value="4800">4800</option>
+                                <option value="9600">9600</option>
+                                <option value="19200">19200</option>
+                                <option value="38400">38400</option>
+                                <option value="57600">57600</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="header_right">
+                        <div class="layui-input-block">
+                            <button id="open_usart_btn" class="layui-btn" lay-submit lay-filter="open_usart_btn">打开串口</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="container">
+                <div class="menu">
+                    <div class="a layui-side layui-bg-black">
+                        <div class="layui-side-scroll">
+                            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                            <ul class="layui-nav layui-nav-tree" lay-filter="test" >
+                                <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+                                <li class="layui-nav-item layui-nav-itemed">
+                                    <a href="javascript:;">默认展开</a>
+                                    <dl class="layui-nav-child">
+                                        <dd><a href="javascript:;">选项1</a></dd>
+                                        <dd><a href="javascript:;">选项2</a></dd>
+                                        <dd><a href="">跳转</a></dd>
+                                    </dl>
+                                </li>
+                                <li class="layui-nav-item">
+                                    <a href="javascript:;">解决方案</a>
+                                    <dl class="layui-nav-child">
+
+                                        <a href="javascript:;">解决方案</a>
+                                        <dl class="layui-nav-child">
+                                            <dd><a href="">移动模块</a></dd>
+                                            <dd><a href="">后台模版</a></dd>
+                                            <dd><a href="">电商平台</a></dd>
+                                        </dl>
+
+                                        <dd><a href="">移动模块</a></dd>
+                                        <dd><a href="">后台模版</a></dd>
+                                        <dd><a href="">电商平台</a></dd>
+                                    </dl>
+                                </li>
+                                <li class="layui-nav-item">
+                                    <a href="javascript:;">解决方案</a>
+                                    <dl class="layui-nav-child">
+
+                                        <a href="javascript:;">解决方案</a>
+                                        <dl class="layui-nav-child">
+                                            <dd><a href="">移动模块</a></dd>
+                                            <dd><a href="">后台模版</a></dd>
+                                            <dd><a href="">电商平台</a></dd>
+                                        </dl>
+
+                                        <dd><a href="">移动模块</a></dd>
+                                        <dd><a href="">后台模版</a></dd>
+                                        <dd><a href="">电商平台</a></dd>
+                                    </dl>
+                                </li>
+                                <li class="layui-nav-item">
+                                    <a href="javascript:;">解决方案</a>
+                                    <dl class="layui-nav-child">
+
+                                        <a href="javascript:;">解决方案</a>
+                                        <dl class="layui-nav-child">
+                                            <dd><a href="">移动模块</a></dd>
+                                            <dd><a href="">后台模版</a></dd>
+                                            <dd><a href="">电商平台</a></dd>
+                                        </dl>
+
+                                        <dd><a href="">移动模块</a></dd>
+                                        <dd><a href="">后台模版</a></dd>
+                                        <dd><a href="">电商平台</a></dd>
+                                    </dl>
+                                </li>
+                                <li class="layui-nav-item">
+                                    <a href="javascript:;">解决方案</a>
+                                    <dl class="layui-nav-child">
+
+                                        <a href="javascript:;">解决方案</a>
+                                        <dl class="layui-nav-child">
+                                            <dd><a href="">移动模块</a></dd>
+                                            <dd><a href="">后台模版</a></dd>
+                                            <dd><a href="">电商平台</a></dd>
+                                        </dl>
+
+                                        <dd><a href="">移动模块</a></dd>
+                                        <dd><a href="">后台模版</a></dd>
+                                        <dd><a href="">电商平台</a></dd>
+                                    </dl>
+                                </li>
+                                <li class="layui-nav-item"><a href="">产品</a></li>
+                                <li class="layui-nav-item"><a href="">大数据</a></li>
+                                </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="input_echo">
+                    <div class="paramInput">
+                        <form class="layui-form" action="">
+                            <div class="paramInput_inner">
+                                <div class="paramInput_a" style="width: 690px;">
+                                    <label class="layui-form-label">公司编码:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="company_no" required  lay-verify="required" placeholder="请输入内容" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="paramInput_b">
+                                    <div class="layui-input-block">
+                                        <button class="layui-btn" lay-submit lay-filter="formDemo">执行</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="resultEcho" style="display: flex; flex-direction: column">
+                        <div class="res_container" style="height: 100%">
+                            <textarea id="res_echo" name="usart_echo" placeholder="结果回显区暂无内容" class="layui-textarea" style="height: 100%"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="./layui/layui.js"></script>
+    <script>
+        let $;
+        //一般直接写在一个js文件中
+        layui.use(['layer', 'form', 'element'], function(){
+            var layer = layui.layer
+                ,form = layui.form;
+            var element = layui.element;
+            $ = layui.jquery;
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+            
+            //监听打开串口的提交
+            form.on('submit(open_usart_btn)', function(data){
+                js_open_port(JSON.stringify(data.field));
+                return false;
+            });
+            
+            js_get_all_port();
+        });
+
+
+        //获取所有串口 
+        // 调用python中的函数
+        async function js_get_all_port(){
+            // 调用python中的函数,注意需要在定义前加上async声明异步    
+            let content = await eel.py_get_all_port()();  //这里用let不用var,调用的python函数后面是两对括号
+            console.log(content)
+            for (var i = 0; i < content.length; i++) {
+                $('#usart_name').append(new Option(content[i], content[i]));
+                //$('#usart_name').append(new Option(content[i], i));
+            }
+            layui.form.render("select");
+        }
+
+
+        //打开串口
+        // 调用python中的函数
+        async function js_open_port(res){  
+            var label = $("#open_usart_btn").html();
+            if (label == "打开串口") {
+                console.log("111")
+                var label = $("#open_usart_btn").text("关闭串口");
+                //把res传递给python
+                await eel.py_open_port(res)();
+
+                //调用python中的函数
+                //let res_from_py = await eel.py_receive_data()();
+                //console.log(res_from_py)
+                
+                
+            } else if (label == "关闭串口") {
+                console.log("222")
+                var label = $("#open_usart_btn").text("打开串口");
+                await eel.py_close_port()();
+            }
+            //var label =$("#usart_name option:selected").html();//jquery获取被html标签包围的文本内容
+            //var res=$("#usart_name option:selected").val();//jquery获取html标签内的内容
+        }
+        
+        // 将js中的函数暴露给python
+        eel.expose(js_fun);
+        function js_fun(res_from_py){
+            console.log(typeof(res_from_py));
+            console.log('js_fun从py得到的内容：' + res_from_py);
+            var source = $("#res_echo").html();
+            //console.log(source)
+            source = source + res_from_py;
+            $("#res_echo").text(source);
+        }
+
+    </script> 
+</html>

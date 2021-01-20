@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    width: 100%;
+    height: 39px;
+    background: #37525d;
+    display: flex;
+}
+
+.header_empty {
+    flex: 1;
+}
+.header_left {
+    flex: 2;
+}
+.header_center {
+    flex: 2;
+}
+.header_right {
+    flex: 2;
+}
+
+.container {
+    width: 100%;
+    height: 681px;
+    background: pink;
+    display: flex;
+}
+
+.menu {
+    flex: 1;
+    background: blue;
+    display: flex;
+}
+
+.paramInput {
+    flex: 1;
+    background: #d2d2d2;
+
+}
+.paramInput_inner {
+    display: flex;    
+    justify-content: space-between;
+}
+
+.resultEcho {
+    flex: 18;
+    background: red;
+
+}
+.input_echo {
+    flex: 6;
+    flex-direction: column;
+    background: gray;
+    display: flex;
+
+}
+
+.a {
+    position: unset !important;
+}
+
+/*
+<div>
+<div class="header"></div>
+<div class="container">
+<div class="menu"></div>
+<div class="input_echo">
+<div class="paramInput"></div>
+<div class="resultEcho"></div>
+</div>
+</div>
+</div>
+ */
