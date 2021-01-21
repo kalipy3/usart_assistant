@@ -48,83 +48,35 @@
                     <div class="a layui-side layui-bg-black">
                         <div class="layui-side-scroll">
                             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                            <ul class="layui-nav layui-nav-tree" lay-filter="test" >
+                            <ul id="param_item_list"class="layui-nav layui-nav-tree" lay-filter="test" >
                                 <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
                                 <li class="layui-nav-item layui-nav-itemed">
-                                    <a href="javascript:;">默认展开</a>
+                                    <a href="javascript:;">运行状态监视</a>
                                     <dl class="layui-nav-child">
-                                        <dd><a href="javascript:;">选项1</a></dd>
-                                        <dd><a href="javascript:;">选项2</a></dd>
-                                        <dd><a href="">跳转</a></dd>
+                                        <li class="layui-nav-item layui-nav-item">
+                                            <a href="javascript:;">参数设置:</a>
+                                            <dl class="layui-nav-child">
+                                                <button id="btn" class="layui-btn" lay-submit style="background:#1c1e24">公司编码</button>
+                                                <dd><button id="btn" class="layui-btn" lay-submit style="background:#1c1e24">逻辑地址</button></dd>
+                                                <dd><button id="btn" class="layui-btn" lay-submit style="background:#1c1e24">服务器ip</button></dd>
+                                                <dd><button id="btn" class="layui-btn" lay-submit style="background:#1c1e24">心跳周期</button></dd>
+                                                
+                                            </dl>
+                                        </li>
+
+                                        <li class="layui-nav-item layui-nav-item">
+                                            <a href="javascript:;">设备控制:</a>
+                                            <dl class="layui-nav-child">
+                                                <dd><button id="btn" class="layui-btn" style="background:#1c1e24">终端重启</button></dd>
+                                                <dd><button id="btn" class="layui-btn" style="background:#1c1e24">电源控制</button></dd>
+                                                <dd><button id="btn" class="layui-btn" style="background:#1c1e24">风扇控制</button></dd>
+                                                <dd><button id="btn" class="layui-btn" style="background:#1c1e24">LED控制</button></dd>
+                                            </dl>
+                                        </li>
                                     </dl>
                                 </li>
-                                <li class="layui-nav-item">
-                                    <a href="javascript:;">解决方案</a>
-                                    <dl class="layui-nav-child">
 
-                                        <a href="javascript:;">解决方案</a>
-                                        <dl class="layui-nav-child">
-                                            <dd><a href="">移动模块</a></dd>
-                                            <dd><a href="">后台模版</a></dd>
-                                            <dd><a href="">电商平台</a></dd>
-                                        </dl>
-
-                                        <dd><a href="">移动模块</a></dd>
-                                        <dd><a href="">后台模版</a></dd>
-                                        <dd><a href="">电商平台</a></dd>
-                                    </dl>
-                                </li>
-                                <li class="layui-nav-item">
-                                    <a href="javascript:;">解决方案</a>
-                                    <dl class="layui-nav-child">
-
-                                        <a href="javascript:;">解决方案</a>
-                                        <dl class="layui-nav-child">
-                                            <dd><a href="">移动模块</a></dd>
-                                            <dd><a href="">后台模版</a></dd>
-                                            <dd><a href="">电商平台</a></dd>
-                                        </dl>
-
-                                        <dd><a href="">移动模块</a></dd>
-                                        <dd><a href="">后台模版</a></dd>
-                                        <dd><a href="">电商平台</a></dd>
-                                    </dl>
-                                </li>
-                                <li class="layui-nav-item">
-                                    <a href="javascript:;">解决方案</a>
-                                    <dl class="layui-nav-child">
-
-                                        <a href="javascript:;">解决方案</a>
-                                        <dl class="layui-nav-child">
-                                            <dd><a href="">移动模块</a></dd>
-                                            <dd><a href="">后台模版</a></dd>
-                                            <dd><a href="">电商平台</a></dd>
-                                        </dl>
-
-                                        <dd><a href="">移动模块</a></dd>
-                                        <dd><a href="">后台模版</a></dd>
-                                        <dd><a href="">电商平台</a></dd>
-                                    </dl>
-                                </li>
-                                <li class="layui-nav-item">
-                                    <a href="javascript:;">解决方案</a>
-                                    <dl class="layui-nav-child">
-
-                                        <a href="javascript:;">解决方案</a>
-                                        <dl class="layui-nav-child">
-                                            <dd><a href="">移动模块</a></dd>
-                                            <dd><a href="">后台模版</a></dd>
-                                            <dd><a href="">电商平台</a></dd>
-                                        </dl>
-
-                                        <dd><a href="">移动模块</a></dd>
-                                        <dd><a href="">后台模版</a></dd>
-                                        <dd><a href="">电商平台</a></dd>
-                                    </dl>
-                                </li>
-                                <li class="layui-nav-item"><a href="">产品</a></li>
-                                <li class="layui-nav-item"><a href="">大数据</a></li>
-                                </ul>
+                            </ul>
                         </div>
                     </div>
 
@@ -134,9 +86,9 @@
                         <form class="layui-form" action="">
                             <div class="paramInput_inner">
                                 <div class="paramInput_a" style="width: 690px;">
-                                    <label class="layui-form-label">公司编码:</label>
+                                    <label id="send_param_label" name="send_param_label" class="layui-form-label">默认:</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="company_no" id="company_no" required  lay-verify="required" placeholder="请输入内容" autocomplete="off" class="layui-input">
+                                        <input type="text" name="send_param_key" id="send_param_key" required  lay-verify="required" placeholder="请输入内容,回车执行" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="paramInput_b">
@@ -171,19 +123,42 @@
             //监听send_data发送数据给串口的提交
             form.on('submit(send_data_btn)', function(data){
                 layer.msg(JSON.stringify(data.field));
-                js_send_data(JSON.stringify(data.field))
+                var key=$("#send_param_key").attr("name");
+                var value=$("#send_param_key").val();
+                let obj = {}
+                obj[key] = value;
+                console.log(obj)
+                js_send_data(JSON.stringify(obj))
                 return false;
             });
-            
+
             //监听打开串口的提交
             form.on('submit(open_usart_btn)', function(data){
                 js_open_port(JSON.stringify(data.field));
                 return false;
             });
-            
-            js_get_all_port();
-        });
 
+            js_get_all_port();
+            
+            //动态监听菜单项点击事件 button是未来动态加入的按钮
+            $('#param_item_list').on('click', "button", function() {
+                console.log('click!')
+                var value = $(this).text()
+                console.log(value)
+                $("#send_param_key").attr("name", value);
+                $("#send_param_label").text(value);
+            })
+           
+            //监听菜单项点击事件
+            //$('#btn').on('click', function() {
+            //    console.log('click!')
+            //    var value = $("#btn").html();
+            //    console.log(value)
+            //    $("#send_param_key").attr("name", value);
+            //    $("#send_param_label").text(value);
+            //    
+            //})
+        });
 
         //获取所有串口 
         // 调用python中的函数
@@ -212,8 +187,8 @@
                 //调用python中的函数
                 //let res_from_py = await eel.py_receive_data()();
                 //console.log(res_from_py)
-                
-                
+
+
             } else if (label == "关闭串口") {
                 console.log("222")
                 var label = $("#open_usart_btn").text("打开串口");
@@ -222,7 +197,7 @@
             //var label =$("#usart_name option:selected").html();//jquery获取被html标签包围的文本内容
             //var res=$("#usart_name option:selected").val();//jquery获取html标签内的内容
         }
-        
+
         // 将js中的函数暴露给python
         eel.expose(js_fun);
         function js_fun(res_from_py){
@@ -233,7 +208,7 @@
             source = source + res_from_py;
             $("#res_echo").text(source);
         }
-        
+
         // 调用python中的函数
         async function js_send_data(data){  
             //把传递给python
