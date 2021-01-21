@@ -10,6 +10,7 @@ import json
 import serial
 from time import sleep
 import serial.tools.list_ports
+import threading
 
 # 定义html文件所在文件夹名称
 eel.init('web')
@@ -18,6 +19,7 @@ eel.init('web')
 
 #----------------------------------------------------------------------------------------------------------
 g_serial = ""
+mutex = threading.Lock()
 #----------------------------------------------------------------------------------------------------------
 # 接收一帧数据
 def recv(serial):
@@ -31,19 +33,27 @@ def recv(serial):
             break
     return data
 #----------------------------------------------------------------------------------------------------------
-def py_receive_data():
+def recv_thread_handler(g_serial):
     while True:
-        #请不要在while中使用input函数，会影响write或recv函数的正常执行，会导致recv接收到的data的内容为难以预料的内容
-        #所以要测试串口数据的发送的话，请直接serial.write("xx")这样
+        sleep(0.05)
+        mutex.acquire()
+        if not g_serial.isOpen() :
+            break;
+        
         print("---------")
-        g_serial.write(("gggggqqqqq_hhhhhhhhh_kkkkkkk_ooooooooo_cccccccccccccc_mmmmmmmm_nnnnnnnnnn").encode("gbk"))
+        #g_serial.write(("gggggqqqqq_hhhhhhhhh_kkkkkkk_ooooooooo_cccccccccccccc_mmmmmmmm_nnnnnnnnnn").encode("gbk"))
 
         data =recv(g_serial)
         if data != b'' :
             print("receive:", data.decode("gbk"))
             js_return = eel.js_fun(data.decode("gbk"))
             #js_return = eel.js_fun('python传过去的参数')
-            print("js_fun call ended---------")
+            #print("js_fun call ended---------")
+
+        mutex.release()
+    
+    print("recv_thread_exited with 0")
+    mutex.release()
 #----------------------------------------------------------------------------------------------------------
 
 # 获取所有串口
@@ -74,8 +84,9 @@ def py_open_port(res_from_js): #res_from_js是js返回过来的参数
     global g_serial
     g_serial = serial.Serial(usart_name,baud_rate, timeout=0.5)
     if g_serial.isOpen() :
-        py_receive_data()
         print("open serial port success")
+        t1 = threading.Thread(target=recv_thread_handler, args=(g_serial,))
+        t1.start()
     else :
         print("open serial port failed")
 
@@ -84,7 +95,10 @@ def py_open_port(res_from_js): #res_from_js是js返回过来的参数
 @eel.expose #把py_close_port暴露给js
 # 关闭串口
 def py_close_port():
+    global g_serial
+    mutex.acquire()
     g_serial.close()
+    mutex.release()
     print("port closed")
 
 #----------------------------------------------------------------------------------------------------------
