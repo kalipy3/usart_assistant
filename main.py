@@ -58,8 +58,9 @@ def recv_thread_handler(g_serial):
 
         data =recv(g_serial)
         if data != b'' :
-            print("receive:", data.decode("gbk"))
-            js_return = eel.js_fun(data.decode("gbk"))
+            print("receive:", data.decode("utf-8"))
+            #js_return = eel.js_fun(data.decode("gbk"))
+            js_return = eel.js_fun(data.decode("utf-8"))
             #js_return = eel.js_fun('python传过去的参数')
             #print("js_fun call ended---------")
 

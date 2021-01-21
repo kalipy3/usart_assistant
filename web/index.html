@@ -106,14 +106,14 @@
                     <div class="paramInput">
                         <form class="layui-form" action="">
                             <div class="paramInput_inner">
-                                <div class="paramInput_a" style="width: 690px;">
-                                    <label id="send_param_label" name="send_param_label" class="layui-form-label">默认:</label>
-                                    <div class="layui-input-block">
+                                <div class="paramInput_a" style="display: flex; flex: 6;">
+                                    <div class="label" style="display: flex; flex: 1;"><label id="send_param_label" name="send_param_label" class="layui-form-label" style="width: auto; margin: 0 auto;">默认:</label></div>
+                                    <div class="gg" style="flex: 4;">
                                         <input type="text" name="send_param_key" id="send_param_key" placeholder="请输入参数,回车执行(若该命令不需要参数，请直接点击执行即可)" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="paramInput_b">
-                                    <div class="layui-input-block">
+                                    <div class="qq">
                                         <button id="send_data_btn" class="layui-btn" lay-submit lay-filter="send_data_btn">执行</button>
                                     </div>
                                 </div>
@@ -225,10 +225,11 @@
         function js_fun(res_from_py){
             console.log(typeof(res_from_py));
             console.log('js_fun从py得到的内容：' + res_from_py);
-            var source = $("#res_echo").html();
-            //console.log(source)
+            var source = $("#res_echo").val();
             source = source + res_from_py;
-            $("#res_echo").text(source);
+            console.log(source)
+            $("#res_echo").val(source);
+            //$("#res_echo").text(source);
         }
 
         // 调用python中的函数
