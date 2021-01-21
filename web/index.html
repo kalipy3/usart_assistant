@@ -56,10 +56,23 @@
                                         <li class="layui-nav-item layui-nav-item">
                                             <a href="javascript:;">参数设置:</a>
                                             <dl class="layui-nav-child">
-                                                <button id="btn" class="layui-btn" lay-submit style="background:#1c1e24">公司编码</button>
-                                                <dd><button id="btn" class="layui-btn" lay-submit style="background:#1c1e24">逻辑地址</button></dd>
-                                                <dd><button id="btn" class="layui-btn" lay-submit style="background:#1c1e24">服务器ip</button></dd>
-                                                <dd><button id="btn" class="layui-btn" lay-submit style="background:#1c1e24">心跳周期</button></dd>
+                                                <dd><button id="set_company_no" class="layui-btn" lay-submit style="background:#1c1e24">公司编码</button></dd>
+                                                <dd><button id="set_logical_addr" class="layui-btn" lay-submit style="background:#1c1e24">逻辑地址</button></dd>
+                                                <dd><button id="set_server_ip" class="layui-btn" lay-submit style="background:#1c1e24">服务器ip</button></dd>
+                                                <dd><button id="set_heartbeat_period" class="layui-btn" lay-submit style="background:#1c1e24">心跳周期</button></dd>
+                                                
+                                            </dl>
+                                        </li>
+                                        
+                                        <li class="layui-nav-item layui-nav-item">
+                                            <a href="javascript:;">参数读取:</a>
+                                            <dl class="layui-nav-child">
+                                                <dd><button id="get_company_no" class="layui-btn" lay-submit style="background:#1c1e24">公司编码</button></dd>
+                                                <dd><button id="get_logical_addr" class="layui-btn" lay-submit style="background:#1c1e24">逻辑地址</button></dd>
+                                                <dd><button id="get_server_ip" class="layui-btn" lay-submit style="background:#1c1e24">服务器ip</button></dd>
+                                                <dd><button id="get_heartbeat_period" class="layui-btn" lay-submit style="background:#1c1e24">心跳周期</button></dd>
+                                                <dd><button id="get_temp" class="layui-btn" lay-submit style="background:#1c1e24">温湿度读取</button></dd>
+                                                <dd><button id="get_dynamic_args" class="layui-btn" lay-submit style="background:#1c1e24">读取运行参数</button></dd>
                                                 
                                             </dl>
                                         </li>
@@ -67,16 +80,24 @@
                                         <li class="layui-nav-item layui-nav-item">
                                             <a href="javascript:;">设备控制:</a>
                                             <dl class="layui-nav-child">
-                                                <dd><button id="btn" class="layui-btn" style="background:#1c1e24">终端重启</button></dd>
-                                                <dd><button id="btn" class="layui-btn" style="background:#1c1e24">电源控制</button></dd>
-                                                <dd><button id="btn" class="layui-btn" style="background:#1c1e24">风扇控制</button></dd>
-                                                <dd><button id="btn" class="layui-btn" style="background:#1c1e24">LED控制</button></dd>
+                                                <dd><button id="reset" class="layui-btn" style="background:#1c1e24">终端复位重启</button></dd>
+                                                <dd><button id="power_off" class="layui-btn" style="background:#1c1e24">终端断电重启</button></dd>
+                                                <dd><button id="power_act" class="layui-btn" style="background:#1c1e24">电源控制</button></dd>
+                                                <dd><button id="fan_act" class="layui-btn" style="background:#1c1e24">风扇控制</button></dd>
+                                                <li class="layui-nav-item layui-nav-item">
+                                                    <a href="javascript:;">LED控制</a>
+                                                    <dl class="layui-nav-child">
+                                                        <dd><button id="led_act" class="layui-btn" style="background:#141519">LED开</button></dd>
+                                                        <dd><button id="led_off" class="layui-btn" style="background:#141519">LED关</button></dd>
+                                                    </dl>
+                                                </li>
                                             </dl>
                                         </li>
+
                                     </dl>
                                 </li>
 
-                            </ul>
+                                </ul>
                         </div>
                     </div>
 
@@ -88,7 +109,7 @@
                                 <div class="paramInput_a" style="width: 690px;">
                                     <label id="send_param_label" name="send_param_label" class="layui-form-label">默认:</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="send_param_key" id="send_param_key" required  lay-verify="required" placeholder="请输入内容,回车执行" autocomplete="off" class="layui-input">
+                                        <input type="text" name="send_param_key" id="send_param_key" placeholder="请输入参数,回车执行(若该命令不需要参数，请直接点击执行即可)" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="paramInput_b">
@@ -139,16 +160,17 @@
             });
 
             js_get_all_port();
-            
+
             //动态监听菜单项点击事件 button是未来动态加入的按钮
             $('#param_item_list').on('click', "button", function() {
                 console.log('click!')
                 var value = $(this).text()
-                console.log(value)
-                $("#send_param_key").attr("name", value);
+                var cmd_name = $(this).attr("id");
+                console.log(cmd_name)
+                $("#send_param_key").attr("name", cmd_name);
                 $("#send_param_label").text(value);
             })
-           
+
             //监听菜单项点击事件
             //$('#btn').on('click', function() {
             //    console.log('click!')
