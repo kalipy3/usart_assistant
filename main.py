@@ -21,6 +21,19 @@ eel.init('web')
 g_serial = ""
 mutex = threading.Lock()
 #----------------------------------------------------------------------------------------------------------
+@eel.expose # 把py_send_data暴露给js
+def py_send_data(res_from_js):#res_from_js是js返回过来的参数
+    print(res_from_js)
+    print(type(res_from_js))
+    #res_from_js = json.loads(res_from_js)
+    #print(res_from_js)
+    #print(type(res_from_js))
+    #for key in res_from_js :
+    #    print(key)
+    #    print(res_from_js[key])
+    #    print(type(key))
+    g_serial.write((res_from_js).encode("gbk"))
+#----------------------------------------------------------------------------------------------------------
 # 接收一帧数据
 def recv(serial):
     while True:

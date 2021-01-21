@@ -136,12 +136,12 @@
                                 <div class="paramInput_a" style="width: 690px;">
                                     <label class="layui-form-label">公司编码:</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="company_no" required  lay-verify="required" placeholder="请输入内容" autocomplete="off" class="layui-input">
+                                        <input type="text" name="company_no" id="company_no" required  lay-verify="required" placeholder="请输入内容" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="paramInput_b">
                                     <div class="layui-input-block">
-                                        <button class="layui-btn" lay-submit lay-filter="formDemo">执行</button>
+                                        <button id="send_data_btn" class="layui-btn" lay-submit lay-filter="send_data_btn">执行</button>
                                     </div>
                                 </div>
                             </div>
@@ -168,9 +168,10 @@
                 ,form = layui.form;
             var element = layui.element;
             $ = layui.jquery;
-            //监听提交
-            form.on('submit(formDemo)', function(data){
+            //监听send_data发送数据给串口的提交
+            form.on('submit(send_data_btn)', function(data){
                 layer.msg(JSON.stringify(data.field));
+                js_send_data(JSON.stringify(data.field))
                 return false;
             });
             
@@ -231,6 +232,12 @@
             //console.log(source)
             source = source + res_from_py;
             $("#res_echo").text(source);
+        }
+        
+        // 调用python中的函数
+        async function js_send_data(data){  
+            //把传递给python
+            await eel.py_send_data(data)();
         }
 
     </script> 
