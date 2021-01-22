@@ -53,7 +53,7 @@
                                 <li class="layui-nav-item layui-nav-itemed">
                                     <a href="javascript:;">运行状态监视</a>
                                     <dl class="layui-nav-child">
-                                        <li class="layui-nav-item layui-nav-item">
+                                        <li class="aaa layui-nav-item layui-nav-item">
                                             <a href="javascript:;">参数设置:</a>
                                             <dl class="layui-nav-child">
                                                 <dd><button id="set_company_no" class="layui-btn" lay-submit style="background:#1c1e24">公司编码</button></dd>
@@ -171,15 +171,22 @@
                 $("#send_param_label").text(value);
             })
 
-            //监听菜单项点击事件
-            //$('#btn').on('click', function() {
-            //    console.log('click!')
-            //    var value = $("#btn").html();
-            //    console.log(value)
-            //    $("#send_param_key").attr("name", value);
-            //    $("#send_param_label").text(value);
-            //    
-            //})
+            //关闭菜单项鼠标右键默认事件
+            $('#param_item_list').on('contextmenu', "button", function(e) {
+                return false;
+            });
+            //动态监听菜单项的鼠标右击事件
+            $('#param_item_list').on('mousedown', "button", function(e) {
+                if (1 == e.which) {
+                    console.log("你点了左键");
+                } else if (2 == e.which) {
+                    console.log("你点了滚轮");
+                } else if (3 == e.which) {
+                    console.log("你点了右键");
+                }
+            })
+            
+            js_get_component_config();
         });
 
         //获取所有串口 
@@ -237,13 +244,52 @@
             //把传递给python
             await eel.py_send_data(data)();
         }
-         js_get_component_config();
+        
         // 调用python中的函数
         // 获取菜单功能控件的配置(即component_config.json文件的内容) 
         async function js_get_component_config(){  
-            let content = await eel.py_read_component_config()();
-            console.log(content)
+            let component_obj= await eel.py_read_component_config()();
+            console.log(component_obj)
+            console.log(typeof(component_obj))
+
+            //解析配置文件
+            console.log("ggg", component_obj.led控制)
+            console.log("ggg1", component_obj.led控制.led开)
+            console.log("ggg3", component_obj.led控制.led开.cmd)
+
+            var component_obj_html="";
+            //console.log(Object.keys(component_obj).length)//获取对象长度
+            for (var i in component_obj) {
+                console.log("1111i:", i)
+                let obj = component_obj[i];
+                console.log("11111component_obj["+i+"]:" ,component_obj[i])
+
+                for (var i in obj) {
+                    console.log("222222obj_i:", i)
+                    let obj2 =obj[i] 
+                    console.log("2222222obj["+i+"]:" ,obj[i])
+                    for (var i in obj2) {
+                        console.log("333333obj_i:", i)
+                        console.log("333333obj2["+i+"]:" ,obj2[i])
+                    }
+                }
+            }
+            for (var i=0; i<Object.keys(component_obj).length; i++) {
+                component_obj_html += 
+                    `<li class="layui-nav-item layui-nav-item">
+                    <a href="javascript:;">参数设置:</a>
+                    <dl class="layui-nav-child">
+                    <dd><button id="set_company_no" class="layui-btn" lay-submit style="background:#1c1e24">公司编码</button></dd>
+                    <dd><button id="set_company_no" class="layui-btn" lay-submit style="background:#1c1e24">公码</button></dd>
+                    </dl>
+                    </li>`
+            }
+            //$(".aaa").html(component_obj_html);
+            $(".aaa").append(component_obj_html);
+            //更新layui,不然动态生成的layui_html标签不起作用
+            layui.element.init();
         }
+
 
     </script> 
 </html>
