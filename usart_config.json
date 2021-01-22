@@ -1,0 +1,14 @@
+{
+    "led控制:": {
+        "led开": {
+            "cmd": "led_act",
+            "key_value_separator": "=>",
+            "args_separator": ","
+        },
+        "led关": {
+            "cmd": "led_off",
+            "key_value_separator": "=>",
+            "args_separator": ","
+        }
+    }
+}
