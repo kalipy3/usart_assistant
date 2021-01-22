@@ -253,24 +253,43 @@
             console.log(typeof(component_obj))
 
             //解析配置文件
-            console.log("ggg", component_obj.led控制)
-            console.log("ggg1", component_obj.led控制.led开)
-            console.log("ggg3", component_obj.led控制.led开.cmd)
-
             var component_obj_html="";
-            //console.log(Object.keys(component_obj).length)//获取对象长度
-            for (var i in component_obj) {
-                console.log("1111i:", i)
-                let obj = component_obj[i];
-                console.log("11111component_obj["+i+"]:" ,component_obj[i])
-
-                for (var i in obj) {
-                    console.log("222222obj_i:", i)
-                    let obj2 =obj[i] 
-                    console.log("2222222obj["+i+"]:" ,obj[i])
-                    for (var i in obj2) {
-                        console.log("333333obj_i:", i)
-                        console.log("333333obj2["+i+"]:" ,obj2[i])
+            for (var key in component_obj) {
+                console.log("level1的功能控件数量为:", Object.keys(component_obj).length)//获取对象长度
+                console.log("level1的功能控件名为:", key)
+                let obj = component_obj[key];
+                console.log("111", obj[Object.keys(obj)[0]])
+                if (typeof(obj[Object.keys(obj)[0]]) == "object") {
+                    console.log("level1的下面还有下一层,下一层为:", obj)
+                    console.log("level2的功能控件数量为:", Object.keys(obj).length)//获取对象长度
+                    let obj2;
+                    for (var key in obj) {
+                        console.log("level2的功能控件名为:", key)
+                        obj2 = obj[key];
+                    }
+                    console.log("222", obj2[Object.keys(obj2)[0]])
+                    if (typeof(obj2[Object.keys(obj2)[0]]) == "object") {
+                        console.log("level2的下面还有下一层,下一层为:", obj2)
+                        console.log("level3的功能控件数量为:", Object.keys(obj2).length)//获取对象长度
+                        let obj3;
+                        for (var key in obj2) {
+                            console.log("level3的功能控件名为:", key)
+                            obj3 = obj2[key];
+                        }
+                        console.log("3333", obj3[Object.keys(obj3)[0]])
+                        if (typeof(obj3[Object.keys(obj3)[0]]) == "object") {
+                            console.log("level3的下面还有下一层,下一层为:", obj3)
+                            console.log("level4的功能控件数量为:", Object.keys(obj3).length)//获取对象长度
+                            let obj4;
+                            for (var key in obj3) {
+                                console.log("level4的功能控件名为:", key)
+                                obj4 = obj3[key];
+                            }
+                            console.log("4444", obj4[Object.keys(obj4)[0]])
+                            if (typeof(obj4[Object.keys(obj4)[0]]) == "object") {
+                                console.log("level4的下面还有下一层,下一层为:", obj4)
+                            } 
+                        } 
                     }
                 }
             }
