@@ -237,6 +237,13 @@
             //把传递给python
             await eel.py_send_data(data)();
         }
+         js_get_component_config();
+        // 调用python中的函数
+        // 获取菜单功能控件的配置(即component_config.json文件的内容) 
+        async function js_get_component_config(){  
+            let content = await eel.py_read_component_config()();
+            console.log(content)
+        }
 
     </script> 
 </html>

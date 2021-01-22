@@ -116,6 +116,14 @@ def py_close_port():
     print("port closed")
 
 #----------------------------------------------------------------------------------------------------------
+# 读取component_config.json中的功能控件配置
+@eel.expose #把py_read_component_config暴露给js
+def py_read_component_config():
+    #直接从json文件中读取数据返回一个python dict,js调用py_func后，py_func把dict数据传递给前端js后，在html_js中刚好是object类型
+    component_config = json.load(open('component_config.json'));
+    return component_config
+
+#----------------------------------------------------------------------------------------------------------
 
 # 启动的函数调用放在最后,port=0表示使用随机端口,size=(宽,高)
 eel.start('index.html', port=0, size=(600,300))
