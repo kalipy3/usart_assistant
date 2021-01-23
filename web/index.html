@@ -254,52 +254,76 @@
 
             //解析配置文件
             var component_obj_html="";
-            for (var key in component_obj) {
-                console.log("aaaaaaaaaaaaaaaaaa")
+            for (var key1 in component_obj) {
+                if (key1.charAt(key1.length-1) == ":")
+                    console.log("a----------------------", key1)
+                else
+                    console.log("aaaaaaaaaaaaaaaaaa")
                 console.log("level1的功能控件数量为:", Object.keys(component_obj).length)//获取对象长度
-                console.log("level1的功能控件名为:", key)
-                let obj = component_obj[key];
+                console.log("level1的功能控件名为:", key1)
+                let obj = component_obj[key1];
                 console.log("111", obj[Object.keys(obj)[0]])
                 if (typeof(obj[Object.keys(obj)[0]]) == "object") {
                     console.log("level1的下面还有下一层,下一层为:", obj)
                     console.log("level2的功能控件数量为:", Object.keys(obj).length)//获取对象长度
                     let obj2;
-                    for (var key in obj) {
-                        console.log("bbbbbbbbbbbbbbbbbb")
-                        console.log("level2的功能控件名为:", key)
-                        obj2 = obj[key];
+                    for (var key2 in obj) {
+                        if (key2.charAt(key2.length-1) == ":")
+                            console.log("b----------------------", key2)
+                        else
+                            console.log("bbbbbbbbbbbbbbbbbb")
+                        console.log("level2的功能控件名为:", key2)
+                        obj2 = obj[key2];
                         console.log("222", obj2[Object.keys(obj2)[0]])
                         if (typeof(obj2[Object.keys(obj2)[0]]) == "object") {
                             console.log("level2的下面还有下一层,下一层为:", obj2)
                             console.log("level3的功能控件数量为:", Object.keys(obj2).length)//获取对象长度
                             let obj3;
-                            for (var key in obj2) {
-                                console.log("cccccccccc")
-                                console.log("level3的功能控件名为:", key)
-                                obj3 = obj2[key];
+                            for (var key3 in obj2) {
+                                if (key3.charAt(key3.length-1) == ":")
+                                    console.log("c----------------------", key3)
+                                else
+                                    console.log("cccccccccc")
+                                console.log("level3的功能控件名为:", key3)
+                                obj3 = obj2[key3];
                                 console.log("3333", obj3[Object.keys(obj3)[0]])
                                 if (typeof(obj3[Object.keys(obj3)[0]]) == "object") {
                                     console.log("level3的下面还有下一层,下一层为:", obj3)
                                     console.log("level4的功能控件数量为:", Object.keys(obj3).length)//获取对象长度
                                     let obj4;
-                                    for (var key in obj3) {
-                                    console.log("ddddddddddd")
-                                        console.log("level4的功能控件名为:", key)
-                                        obj4 = obj3[key];
+                                    for (var key4 in obj3) {
+                                        if (key4.charAt(key4.length-1) == ":")
+                                            console.log("d----------------------", key4)
+                                        else
+                                            console.log("ddddddddddd")
+                                        console.log("level4的功能控件名为:", key4)
+                                        obj4 = obj3[key4];
                                         console.log("4444", obj4[Object.keys(obj4)[0]])
                                         if (typeof(obj4[Object.keys(obj4)[0]]) == "object") {
                                             console.log("level4的下面还有下一层,下一层为:", obj4)
                                         } 
-                                    console.log("ddddddddddd----ending")
+                                        if (key4.charAt(key4.length-1) == ":")
+                                            console.log("d----------------------endxxxxxxx", key4)
+                                        else
+                                            console.log("ddddddddddd----ending")
                                     }
                                 } 
-                                console.log("cccccccccc-----ending")
+                                if (key3.charAt(key3.length-1) == ":") 
+                                    console.log("c----------------------endxxxxxxxxxxx", key3)
+                                else
+                                    console.log("cccccccccc-----ending")
                             }
                         }
-                        console.log("bbbbbbbbbbbbbbbbbb----ending")
+                        if (key2.charAt(key2.length-1) == ":")
+                            console.log("b----------------------", key2)
+                        else
+                            console.log("bbbbbbbbbbbbbbbbbb----ending")
                     }
                 }
-                console.log("aaaaaaaaaaaaaaaaaa___endimg")
+                if (key1.charAt(key1.length-1) == ":")
+                    console.log("a----------------------", key1)
+                else
+                    console.log("aaaaaaaaaaaaaaaaaa___endimg")
             }
             for (var i=0; i<Object.keys(component_obj).length; i++) {
                 component_obj_html += 
