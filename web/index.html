@@ -50,7 +50,7 @@
                             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                             <ul id="param_item_list"class="layui-nav layui-nav-tree" lay-filter="test" >
                                 <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
-                                <li class="layui-nav-item layui-nav-itemed">
+                                <li class="bbb layui-nav-item layui-nav-itemed">
                                     <a href="javascript:;">运行状态监视</a>
                                     <dl class="layui-nav-child">
                                         <li class="aaa layui-nav-item layui-nav-item">
@@ -256,7 +256,8 @@
             var component_obj_html="";
             for (var key1 in component_obj) {
                 if (key1.charAt(key1.length-1) == ":")
-                    console.log("a----------------------", key1)
+                    //console.log("a----------------------", key1)
+                    component_obj_html += `<li class="layui-nav-item layui-nav-item"><a href="javascript:;">`+key1+`</a><dl class="layui-nav-child">`
                 else
                     console.log("aaaaaaaaaaaaaaaaaa")
                 console.log("level1的功能控件数量为:", Object.keys(component_obj).length)//获取对象长度
@@ -269,7 +270,8 @@
                     let obj2;
                     for (var key2 in obj) {
                         if (key2.charAt(key2.length-1) == ":")
-                            console.log("b----------------------", key2)
+                            //console.log("b----------------------", key2)
+                            component_obj_html += `<li class="layui-nav-item layui-nav-item"><a href="javascript:;">`+key2+`</a><dl class="layui-nav-child">`
                         else
                             console.log("bbbbbbbbbbbbbbbbbb")
                         console.log("level2的功能控件名为:", key2)
@@ -281,7 +283,8 @@
                             let obj3;
                             for (var key3 in obj2) {
                                 if (key3.charAt(key3.length-1) == ":")
-                                    console.log("c----------------------", key3)
+                                    //console.log("c----------------------", key3)
+                                    component_obj_html += `<li class="layui-nav-item layui-nav-item"><a href="javascript:;">`+key3+`</a><dl class="layui-nav-child">`
                                 else
                                     console.log("cccccccccc")
                                 console.log("level3的功能控件名为:", key3)
@@ -293,7 +296,8 @@
                                     let obj4;
                                     for (var key4 in obj3) {
                                         if (key4.charAt(key4.length-1) == ":")
-                                            console.log("d----------------------", key4)
+                                            //console.log("d----------------------", key4)
+                                            component_obj_html += `<li class="layui-nav-item layui-nav-item"><a href="javascript:;">`+key4+`</a><dl class="layui-nav-child">`
                                         else
                                             console.log("ddddddddddd")
                                         console.log("level4的功能控件名为:", key4)
@@ -303,40 +307,37 @@
                                             console.log("level4的下面还有下一层,下一层为:", obj4)
                                         } 
                                         if (key4.charAt(key4.length-1) == ":")
-                                            console.log("d----------------------endxxxxxxx", key4)
+                                            //console.log("d----------------------endxxxxxxx", key4)
+                                            component_obj_html += `</dl></li>`
                                         else
-                                            console.log("ddddddddddd----ending")
+                                            //console.log("ddddddddddd----ending")
+                                            component_obj_html += `<dd><button id=`+obj4[Object.keys(obj4)[0]]+` class="layui-btn" lay-submit style="background:#141519">`+key4+`</button></dd>`
                                     }
                                 } 
                                 if (key3.charAt(key3.length-1) == ":") 
-                                    console.log("c----------------------endxxxxxxxxxxx", key3)
+                                    //console.log("c----------------------endxxxxxxxxxxx", key3)
+                                    component_obj_html += `</dl></li>`
                                 else
-                                    console.log("cccccccccc-----ending")
+                                    //console.log("cccccccccc-----ending")
+                                    component_obj_html += `<dd><button id=`+obj3[Object.keys(obj3)[0]]+` class="layui-btn" lay-submit style="background:#1c1e24">`+key3+`</button></dd>`
                             }
                         }
                         if (key2.charAt(key2.length-1) == ":")
-                            console.log("b----------------------", key2)
+                            //console.log("b----------------------", key2)
+                            component_obj_html += `</dl></li>`
                         else
-                            console.log("bbbbbbbbbbbbbbbbbb----ending")
+                            //console.log("bbbbbbbbbbbbbbbbbb----ending")
+                            component_obj_html += `<dd><button id=`+obj2[Object.keys(obj2)[0]]+` class="layui-btn" lay-submit style="background:#1c1e24">`+key2+`</button></dd>`
                     }
                 }
                 if (key1.charAt(key1.length-1) == ":")
-                    console.log("a----------------------", key1)
+                    //console.log("a----------------------", key1)
+                    component_obj_html += `</dl></li>`
                 else
-                    console.log("aaaaaaaaaaaaaaaaaa___endimg")
+                    //console.log("aaaaaaaaaaaaaaaaaa___endimg")
+                    component_obj_html += `<dd><button id=`+obj1[Object.keys(obj1)[0]]+` class="layui-btn" lay-submit style="background:#1c1e24">`+key1+`</button></dd>`
             }
-            for (var i=0; i<Object.keys(component_obj).length; i++) {
-                component_obj_html += 
-                    `<li class="layui-nav-item layui-nav-item">
-                    <a href="javascript:;">参数设置:</a>
-                    <dl class="layui-nav-child">
-                    <dd><button id="set_company_no" class="layui-btn" lay-submit style="background:#1c1e24">公司编码</button></dd>
-                    <dd><button id="set_company_no" class="layui-btn" lay-submit style="background:#1c1e24">公码</button></dd>
-                    </dl>
-                    </li>`
-            }
-            //$(".aaa").html(component_obj_html);
-            $(".aaa").append(component_obj_html);
+            $(".bbb").append(component_obj_html);
             //更新layui,不然动态生成的layui_html标签不起作用
             layui.element.init();
         }
