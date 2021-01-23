@@ -1,8 +1,39 @@
 {
     "运行状态监视:": {
         "参数设置:": {
+            "公司编码": {
+                "cmd": "set_company_no",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            },
+            "逻辑地址": {
+                "cmd": "set_addr",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            },
+            "服务器ip": {
+                "cmd": "set_server_ip",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            },
+            "心跳周期": {
+                "cmd": "set_heartbeat",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            }
+
         },
         "设备控制:": {
+            "电源控制": {
+                "cmd": "power",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            },
+            "风扇控制": {
+                "cmd": "fan",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            },
             "led控制:": {
                 "led开": {
                     "cmd": "led_act",

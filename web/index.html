@@ -255,6 +255,7 @@
             //解析配置文件
             var component_obj_html="";
             for (var key in component_obj) {
+                console.log("aaaaaaaaaaaaaaaaaa")
                 console.log("level1的功能控件数量为:", Object.keys(component_obj).length)//获取对象长度
                 console.log("level1的功能控件名为:", key)
                 let obj = component_obj[key];
@@ -264,6 +265,7 @@
                     console.log("level2的功能控件数量为:", Object.keys(obj).length)//获取对象长度
                     let obj2;
                     for (var key in obj) {
+                        console.log("bbbbbbbbbbbbbbbbbb")
                         console.log("level2的功能控件名为:", key)
                         obj2 = obj[key];
                         console.log("222", obj2[Object.keys(obj2)[0]])
@@ -272,6 +274,7 @@
                             console.log("level3的功能控件数量为:", Object.keys(obj2).length)//获取对象长度
                             let obj3;
                             for (var key in obj2) {
+                                console.log("cccccccccc")
                                 console.log("level3的功能控件名为:", key)
                                 obj3 = obj2[key];
                                 console.log("3333", obj3[Object.keys(obj3)[0]])
@@ -280,18 +283,23 @@
                                     console.log("level4的功能控件数量为:", Object.keys(obj3).length)//获取对象长度
                                     let obj4;
                                     for (var key in obj3) {
+                                    console.log("ddddddddddd")
                                         console.log("level4的功能控件名为:", key)
                                         obj4 = obj3[key];
                                         console.log("4444", obj4[Object.keys(obj4)[0]])
                                         if (typeof(obj4[Object.keys(obj4)[0]]) == "object") {
                                             console.log("level4的下面还有下一层,下一层为:", obj4)
                                         } 
+                                    console.log("ddddddddddd----ending")
                                     }
                                 } 
+                                console.log("cccccccccc-----ending")
                             }
                         }
+                        console.log("bbbbbbbbbbbbbbbbbb----ending")
                     }
                 }
+                console.log("aaaaaaaaaaaaaaaaaa___endimg")
             }
             for (var i=0; i<Object.keys(component_obj).length; i++) {
                 component_obj_html += 
