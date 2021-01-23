@@ -109,7 +109,7 @@
                                 <div class="paramInput_a" style="display: flex; flex: 6;">
                                     <div class="label" style="display: flex; flex: 1;"><label id="send_param_label" name="send_param_label" class="layui-form-label" style="width: auto; margin: 0 auto;">默认:</label></div>
                                     <div class="gg" style="flex: 4;">
-                                        <input type="text" name="send_param_key" id="send_param_key" placeholder="请输入参数,回车执行(若该命令不需要参数，请直接点击执行即可)" autocomplete="off" class="layui-input">
+                                        <input type="text" name="send_param_key" id="send_param_key" args_separator="," key_value_separator="=>" placeholder="请输入参数,回车执行(若该命令不需要参数，请直接点击执行即可)" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="paramInput_b">
@@ -165,10 +165,18 @@
             $('#param_item_list').on('click', "button", function() {
                 console.log('click!')
                 var value = $(this).text()
+                //取出cmd args_separator key_value_separator
                 var cmd_name = $(this).attr("id");
+                var args_separator = $(this).attr("args_separator");
+                var key_value_separator = $(this).attr("key_value_separator");
                 console.log(cmd_name)
+                console.log("args_separator被点击",args_separator)
+                console.log("key_value_separator被点击", key_value_separator)
+                //把cmd args_separator key_value_separator设置到串口参数输入区的input输入框的相应属性中去
                 $("#send_param_key").attr("name", cmd_name);
                 $("#send_param_label").text(value);
+                $("#send_param_key").attr("args_separator", args_separator);
+                $("#send_param_key").attr("key_value_separator", key_value_separator);
             })
 
             //关闭菜单项鼠标右键默认事件
