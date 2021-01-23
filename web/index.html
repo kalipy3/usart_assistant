@@ -143,13 +143,36 @@
             $ = layui.jquery;
             //监听send_data发送数据给串口的提交
             form.on('submit(send_data_btn)', function(data){
-                layer.msg(JSON.stringify(data.field));
-                var key=$("#send_param_key").attr("name");
-                var value=$("#send_param_key").val();
-                let obj = {}
-                obj[key] = value;
-                console.log(obj)
-                js_send_data(JSON.stringify(obj))
+                //取出input_container cmd args_separator key_value_separator 
+                var input_container=$("#send_param_key").val();
+                var cmd_name = $("#send_param_key").attr("name");
+                var args_separator = $("#send_param_key").attr("args_separator");
+                var key_value_separator = $("#send_param_key").attr("key_value_separator");
+                //保存构造好的将要发送的串口数据
+                var str ="";
+                //如果input_container没有填入任何参数
+                if (input_container == "") {
+                    str = "\r\n{cmd" +key_value_separator+'"'+ cmd_name +'"' + "}\r\n"
+                }
+                //如果参数只有一个,即不存在args_separator,如:cmd=>"set_server_ip",ip=>"127.0.0.1"(注意:在不存在args_separator时，set_server_ip的ip必须以_开始，因为ip=>"127.0.0.1"的ip是通过cmd_name的最后一个_字段来确定的),在input只要输入127.0.0.1
+                //input_container不包含args_separator
+                else if (input_container.indexOf(args_separator) == -1) {
+                //则构造字符串的方法为:
+                    var cmd_name_xx = cmd_name.substring(cmd_name.lastIndexOf("_")+1, cmd_name.length);//提取cmd_name的后_字段
+                    str = "\r\n{cmd" + key_value_separator +'"'+ cmd_name +'"'+ args_separator + cmd_name_xx + key_value_separator +'"'+ input_container +'"'+ "}\r\n"
+                } 
+                //如果参数大于2个，即存在args_separator，如:\r\n{cmd=>"led_act",led0=>"on"}\r\n,在input中输入为led0,on
+                //则构造字符串的方法为: 
+                //input_container包含args_separator
+                else if (input_container.indexOf(args_separator) != -1) {
+                //则构造字符串的方法为:
+                    var before = input_container.substring(0, input_container.indexOf(args_separator));//提取args_separator前面的led0
+                    var after = input_container.substring(input_container.indexOf(args_separator)+1, input_container.length);//提取args_separator后面的on
+                    str = "\r\n{cmd" + key_value_separator +'"'+ cmd_name +'"'+ args_separator + before + key_value_separator +'"'+ after +'"'+ "}\r\n"
+                } 
+                layer.msg(str);
+
+                js_send_data(str);
                 return false;
             });
 
