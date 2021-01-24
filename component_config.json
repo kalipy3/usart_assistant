@@ -7,7 +7,7 @@
                 "args_separator": ","
             },
             "逻辑地址": {
-                "cmd": "set_addr",
+                "cmd": "set_logical_addr",
                 "key_value_separator": "=>",
                 "args_separator": ","
             },
@@ -17,20 +17,62 @@
                 "args_separator": ","
             },
             "心跳周期": {
-                "cmd": "set_heartbeat",
+                "cmd": "set_heartbeat_period",
                 "key_value_separator": "=>",
                 "args_separator": ","
             }
 
         },
+        "参数读取:": {
+            "公司编码": {
+                "cmd": "get_company_no",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            },
+            "逻辑地址": {
+                "cmd": "get_logical_addr",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            },
+            "服务器ip": {
+                "cmd": "get_server_ip",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            },
+            "心跳周期": {
+                "cmd": "get_heartbeat_period",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            },
+            "温湿度读取": {
+                "cmd": "get_temp",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            },
+            "读取运行参数": {
+                "cmd": "get_dynamic_args",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            }
+        },
         "设备控制:": {
+            "终端复位重启": {
+                "cmd": "reset",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            },
+            "终端断电重启": {
+                "cmd": "power_off",
+                "key_value_separator": "=>",
+                "args_separator": ","
+            },
             "电源控制": {
-                "cmd": "power",
+                "cmd": "power_act",
                 "key_value_separator": "=>",
                 "args_separator": ","
             },
             "风扇控制": {
-                "cmd": "fan",
+                "cmd": "fan_act",
                 "key_value_separator": "=>",
                 "args_separator": ","
             },

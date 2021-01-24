@@ -50,54 +50,10 @@
                             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                             <ul id="param_item_list"class="layui-nav layui-nav-tree" lay-filter="test" >
                                 <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+                                <!-- 从component_config.json配置文件中动态生成bbb"> -->
                                 <li class="bbb layui-nav-item layui-nav-itemed">
-                                    <a href="javascript:;">运行状态监视</a>
-                                    <dl class="layui-nav-child">
-                                        <li class="aaa layui-nav-item layui-nav-item">
-                                            <a href="javascript:;">参数设置:</a>
-                                            <dl class="layui-nav-child">
-                                                <dd><button id="set_company_no" class="layui-btn" lay-submit style="background:#1c1e24">公司编码</button></dd>
-                                                <dd><button id="set_logical_addr" class="layui-btn" lay-submit style="background:#1c1e24">逻辑地址</button></dd>
-                                                <dd><button id="set_server_ip" class="layui-btn" lay-submit style="background:#1c1e24">服务器ip</button></dd>
-                                                <dd><button id="set_heartbeat_period" class="layui-btn" lay-submit style="background:#1c1e24">心跳周期</button></dd>
-                                                
-                                            </dl>
-                                        </li>
-                                        
-                                        <li class="layui-nav-item layui-nav-item">
-                                            <a href="javascript:;">参数读取:</a>
-                                            <dl class="layui-nav-child">
-                                                <dd><button id="get_company_no" class="layui-btn" lay-submit style="background:#1c1e24">公司编码</button></dd>
-                                                <dd><button id="get_logical_addr" class="layui-btn" lay-submit style="background:#1c1e24">逻辑地址</button></dd>
-                                                <dd><button id="get_server_ip" class="layui-btn" lay-submit style="background:#1c1e24">服务器ip</button></dd>
-                                                <dd><button id="get_heartbeat_period" class="layui-btn" lay-submit style="background:#1c1e24">心跳周期</button></dd>
-                                                <dd><button id="get_temp" class="layui-btn" lay-submit style="background:#1c1e24">温湿度读取</button></dd>
-                                                <dd><button id="get_dynamic_args" class="layui-btn" lay-submit style="background:#1c1e24">读取运行参数</button></dd>
-                                                
-                                            </dl>
-                                        </li>
-
-                                        <li class="layui-nav-item layui-nav-item">
-                                            <a href="javascript:;">设备控制:</a>
-                                            <dl class="layui-nav-child">
-                                                <dd><button id="reset" class="layui-btn" style="background:#1c1e24">终端复位重启</button></dd>
-                                                <dd><button id="power_off" class="layui-btn" style="background:#1c1e24">终端断电重启</button></dd>
-                                                <dd><button id="power_act" class="layui-btn" style="background:#1c1e24">电源控制</button></dd>
-                                                <dd><button id="fan_act" class="layui-btn" style="background:#1c1e24">风扇控制</button></dd>
-                                                <li class="layui-nav-item layui-nav-item">
-                                                    <a href="javascript:;">LED控制</a>
-                                                    <dl class="layui-nav-child">
-                                                        <dd><button id="led_act" class="layui-btn" style="background:#141519">LED开</button></dd>
-                                                        <dd><button id="led_off" class="layui-btn" style="background:#141519">LED关</button></dd>
-                                                    </dl>
-                                                </li>
-                                            </dl>
-                                        </li>
-
-                                    </dl>
                                 </li>
-
-                                </ul>
+                            </ul>
                         </div>
                     </div>
 
@@ -150,8 +106,12 @@
                 var key_value_separator = $("#send_param_key").attr("key_value_separator");
                 //保存构造好的将要发送的串口数据
                 var str ="";
+                //如果input标签是"默认:",即cmd_name是默认的send_param_key
+                if (cmd_name == "send_param_key") {
+                    str = input_container;
+                }
                 //如果input_container没有填入任何参数
-                if (input_container == "") {
+                else if (input_container == "") {
                     str = "\r\n{cmd" +key_value_separator+'"'+ cmd_name +'"' + "}\r\n"
                 }
                 //如果参数只有一个,即不存在args_separator,如:cmd=>"set_server_ip",ip=>"127.0.0.1"(注意:在不存在args_separator时，set_server_ip的ip必须以_开始，因为ip=>"127.0.0.1"的ip是通过cmd_name的最后一个_字段来确定的),在input只要输入127.0.0.1
@@ -215,6 +175,12 @@
                 } else if (3 == e.which) {
                     console.log("你点了右键");
                 }
+            })
+            
+            //监听input参数输入区的"默认:"二字是否被点击,被点击则转为串口助手模式(即发什么就是什么)
+            $('#send_param_label').on('click', function() {
+                $("#send_param_key").attr("name", "send_param_key");
+                $("#send_param_label").text("默认:");
             })
             
             js_get_component_config();
