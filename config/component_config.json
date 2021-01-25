@@ -3,89 +3,65 @@
         "参数设置:": {
             "公司编码": {
                 "cmd": "set_company_no",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "int": "0,"
             },
             "逻辑地址": {
                 "cmd": "set_logical_addr",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "int": "0,"
             },
             "服务器ip": {
                 "cmd": "set_server_ip",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "regex": "/(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)/"
             },
             "心跳周期": {
                 "cmd": "set_heartbeat_period",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "int": "0,"
             }
 
         },
         "参数读取:": {
             "公司编码": {
-                "cmd": "get_company_no",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "cmd": "get_company_no"
             },
             "逻辑地址": {
-                "cmd": "get_logical_addr",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "cmd": "get_logical_addr"
             },
             "服务器ip": {
-                "cmd": "get_server_ip",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "cmd": "get_server_ip"
             },
             "心跳周期": {
-                "cmd": "get_heartbeat_period",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "cmd": "get_heartbeat_period"
             },
             "温湿度读取": {
-                "cmd": "get_temp",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "cmd": "get_temp"
             },
             "读取运行参数": {
-                "cmd": "get_dynamic_args",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "cmd": "get_dynamic_args"
             }
         },
         "设备控制:": {
             "终端复位重启": {
-                "cmd": "reset",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "cmd": "reset"
             },
             "终端断电重启": {
-                "cmd": "power_off",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "cmd": "power_off"
             },
             "电源控制": {
                 "cmd": "power_act",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "enum": "on,off"
             },
             "风扇控制": {
                 "cmd": "fan_act",
-                "key_value_separator": "=>",
-                "args_separator": ","
+                "enum": "on,off"
             },
             "led控制:": {
                 "led开": {
                     "cmd": "led_act",
-                    "key_value_separator": "=>",
-                    "args_separator": ","
+                    "enum": "on"
                 },
                 "led关": {
                     "cmd": "led_off",
-                    "key_value_separator": "=>",
-                    "args_separator": ","
+                    "enum": "off"
                 }
             }
         }
