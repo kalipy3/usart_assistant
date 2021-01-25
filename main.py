@@ -16,7 +16,7 @@ import serial_data_recv
 import serial_port_control
 
 # 定义html文件所在文件夹名称
-eel.init('web')
+eel.init('view')
 
 #初始化全局变量
 my_global.init()

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=375,user-scalable=no" />
+        <script type="text/javascript" src="/eel.js"></script>
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+        <link rel="stylesheet" href="./layui/css/layui.css">
+    </head>
+    <body>
+        <div>
+            <form class="layui-form" action="">
+                <div class="header">
+                    <div class="header_empty">
+                    </div>
+                    <div class="header_left">
+                        <label class="layui-form-label" style="color: skyblue">选择串口:</label>
+                        <div class="layui-input-block" style="width: 145px">
+                            <select name="usart_name" id="usart_name" lay-verify="required" lay-filter="choose_port">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="header_center">
+                        <label class="layui-form-label" style="color: skyblue">波特率:</label>
+                        <div class="layui-input-block" style="width: 145px">
+                            <select name="baud_rate" lay-verify="required">
+                                <option value="115200">115200</option>
+                                <option value="1200">1200</option>
+                                <option value="4800">4800</option>
+                                <option value="9600">9600</option>
+                                <option value="19200">19200</option>
+                                <option value="38400">38400</option>
+                                <option value="57600">57600</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="header_right">
+                        <div class="layui-input-block">
+                            <button id="open_usart_btn" class="layui-btn" lay-submit lay-filter="open_usart_btn">打开串口</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="container">
+                <div class="menu">
+                    <div class="a layui-side layui-bg-black">
+                        <div class="layui-side-scroll">
+                            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                            <ul id="param_item_list"class="layui-nav layui-nav-tree" lay-filter="test" >
+                                <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+                                <!-- 从component_config.json配置文件中动态生成bbb"> -->
+                                <li class="bbb layui-nav-item layui-nav-itemed">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="input_echo">
+                    <div class="paramInput">
+                        <form class="layui-form" action="">
+                            <div class="paramInput_inner">
+                                <div class="paramInput_a" style="display: flex; flex: 6;">
+                                    <div class="label" style="display: flex; flex: 1;"><label id="send_param_label" name="send_param_label" class="layui-form-label" style="width: auto; margin: 0 auto;">默认:</label></div>
+                                    <div class="gg" style="flex: 4;">
+                                        <input type="text" name="send_param_key" id="send_param_key" args_separator="," key_value_separator="=>" placeholder="请输入参数,回车执行(若该命令不需要参数，请直接点击执行即可)" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="paramInput_b">
+                                    <div class="qq">
+                                        <button id="send_data_btn" class="layui-btn" lay-submit lay-filter="send_data_btn">执行</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="resultEcho" style="display: flex; flex-direction: column">
+                        <div class="res_container" style="height: 100%">
+                            <textarea id="res_echo" name="usart_echo" placeholder="结果回显区暂无内容" class="layui-textarea" style="height: 100%"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="./layui/layui.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/port.js"></script>
+    <script src="./js/serial_data_send_recv.js"></script>
+    <script src="./js/component_config.js"></script>
+</html>

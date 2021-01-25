@@ -45,7 +45,7 @@ def recv_thread_handler():
         if data != b'' :
             print("receive:", data.decode("utf-8"))
             #js_fun('python传过去的参数')
-            eel.js_fun(data.decode("utf-8"))
+            eel.js_recv(data.decode("utf-8"))
 
         mutex.release()
     
