@@ -131,10 +131,10 @@ def xml_to_json(xml_str):
 def py_read_component_config():
     try:
         #直接从json文件中读取数据返回一个python dict,js调用py_func后，py_func把dict数据传递给前端js后，在html_js中刚好是object类型
-        component_config_json = json.load(open('component_config.json'));
+        component_config_json = json.load(open('config/component_config.json'));
     except FileNotFoundError:
         print('component_config.json未找到，将使用component_config.xml文件')
-        f = open('component_config.xml', "r");
+        f = open('config/component_config.xml', "r");
         component_xml = f.read()
         component_config_json = xml_to_json(component_xml)
         f.close()
