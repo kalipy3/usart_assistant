@@ -3,88 +3,64 @@
         <参数设置:>
                 <公司编码>
                         <cmd>set_company_no</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
+                        <regex>^[1-9]\d*$</regex>
                 </公司编码>
                 <逻辑地址>
                         <cmd>set_logical_addr</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
+                        <int>0,</int>
                 </逻辑地址>
                 <服务器ip>
                         <cmd>set_server_ip</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
+                        <regex>(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)</regex>
                 </服务器ip>
                 <心跳周期>
                         <cmd>set_heartbeat_period</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
+                        <int>0,</int>
                 </心跳周期>
         </参数设置:>
         <参数读取:>
                 <公司编码>
                         <cmd>get_company_no</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
                 </公司编码>
                 <逻辑地址>
                         <cmd>get_logical_addr</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
                 </逻辑地址>
                 <服务器ip>
                         <cmd>get_server_ip</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
                 </服务器ip>
                 <心跳周期>
                         <cmd>get_heartbeat_period</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
                 </心跳周期>
                 <温湿度读取>
                         <cmd>get_temp</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
                 </温湿度读取>
                 <读取运行参数>
                         <cmd>get_dynamic_args</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
                 </读取运行参数>
         </参数读取:>
         <设备控制:>
                 <终端复位重启>
                         <cmd>reset</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
                 </终端复位重启>
                 <终端断电重启>
                         <cmd>power_off</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
                 </终端断电重启>
                 <电源控制>
                         <cmd>power_act</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
+                        <enum>on,off</enum>
                 </电源控制>
                 <风扇控制>
                         <cmd>fan_act</cmd>
-                        <key_value_separator>=&gt;</key_value_separator>
-                        <args_separator>,</args_separator>
+                        <enum>on,off</enum>
                 </风扇控制>
                 <led控制:>
                         <led开>
                                 <cmd>led_act</cmd>
-                                <key_value_separator>=&gt;</key_value_separator>
-                                <args_separator>,</args_separator>
+                                <enum>on</enum>
                         </led开>
                         <led关>
                                 <cmd>led_off</cmd>
-                                <key_value_separator>=&gt;</key_value_separator>
-                                <args_separator>,</args_separator>
+                                <enum>off</enum>
                         </led关>
                 </led控制:>
         </设备控制:>
