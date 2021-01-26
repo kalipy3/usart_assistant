@@ -71,7 +71,7 @@ async function js_get_component_config(){
                                     component_obj_html += `</dl></li>`
                                 else
                                     //console.log("ddddddddddd----ending")
-                                    component_obj_html += `<dd><button id="` +obj4[Object.keys(obj4)[0]]+ `"` + `args_separator="` +obj4[Object.keys(obj4)[2]]+ `"` + Object.keys(obj4)[1] + `="` + obj4[Object.keys(obj4)[1]]+ `"` +  `class="layui-btn" lay-submit style="background:#1c1e24">`+key4+`</button></dd>`
+                                    component_obj_html += `<dd><button id="` +obj4[Object.keys(obj4)[0]]+ `"` + `args_separator="` +obj4[Object.keys(obj4)[2]]+ `"` + Object.keys(obj4)[1] + `="` + obj4[Object.keys(obj4)[1]]+ `"` +  `class="layui-btn" lay-submit style="background:#141519">`+key4+`</button></dd>`
                             }
                         } 
                         if (key3.charAt(key3.length-1) == ":") 

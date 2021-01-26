@@ -146,11 +146,11 @@ layui.use(['layer', 'form', 'element'], function(){
     })
 
     //关闭串口数据回显区右键默认事件
-    $('#res_echo').on('contextmenu', function(e) {
+    $('.res_echo_layui').on('contextmenu', function(e) {
         return false;
     });
     //监听串口数据回显区的鼠标右击事件
-    $('#res_echo').on('mousedown', function(e) {
+    $('.res_echo_layui').on('mousedown', function(e) {
         if (1 == e.which) {
             console.log("你点了左键");
         } else if (2 == e.which) {
