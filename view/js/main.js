@@ -160,6 +160,23 @@ layui.use(['layer', 'form', 'element'], function(){
             $("#res_echo").empty();
         }
     })
+    
+    //关闭串口数据输入区input的鼠标右键默认事件
+    $('#send_param_key').on('contextmenu', function(e) {
+        return false;
+    });
+    //监听串口数据输入区input的鼠标右击事件
+    $('#send_param_key').on('mousedown', function(e) {
+        if (1 == e.which) {
+            console.log("你点了左键");
+        } else if (2 == e.which) {
+            console.log("你点了滚轮");
+        } else if (3 == e.which) {
+            console.log("你点了串口数据输入区右键");
+            $("#send_param_key").val("")
+        }
+    })
+    
     //监听input参数输入区的"默认:"二字是否被点击,被点击则转为串口助手模式(即发什么就是什么)
     $('#send_param_label').on('click', function() {
         $("#send_param_key").attr("name", "send_param_key");
