@@ -11,10 +11,21 @@ eel.expose(js_recv);
 function js_recv(res_from_py){
     console.log(typeof(res_from_py));
     console.log('js_fun从py得到的内容：' + res_from_py);
-    var source = $("#res_echo").val();
-    source = source + res_from_py;
-    console.log(source)
-    $("#res_echo").val(source);
+    //var source = $("#res_echo").val();
+    //source = source + res_from_py;
+    //console.log(source)
+    //$("#res_echo").val(source);
+    
+    //向res_echo写入内容
+    var oFont1=document.createElement("FONT"); 
+    var pre=document.createElement("pre");
+    //被<pre></pre>包围的res_from_py等text中的"\r\n"等特殊字符才会被浏览器识别
+    var oText1=document.createTextNode(res_from_py); 
+    oFont1.style.color="green"; 
+    $("#res_echo").append(oFont1); 
+    oFont1.appendChild(pre); 
+    pre.appendChild(oText1); 
+    oFont1.appendChild(pre); 
 }
 
 // 调用python中的函数 把html中串口参数输入区中用户输入的数据发送给串口

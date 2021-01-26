@@ -13,14 +13,59 @@ layui.use(['layer', 'form', 'element'], function(){
     $ = layui.jquery;
     
     //监听send_data发送数据给串口的提交
-    form.on('submit(send_data_btn)', function(data){
+    form.on('submit(send_data_btn)', function(){
         //取出input_container cmd args_separator key_value_separator 
         var input_container=$("#send_param_key").val();
         var cmd_name = $("#send_param_key").attr("name");
         //var args_separator = $("#send_param_key").attr("args_separator");
         //var key_value_separator = $("#send_param_key").attr("key_value_separator");
+        
+        //用户在串口输入区的input输入框中输入的数据的合法性的前端校验
+        //input_data_verify()
+        //取出int enum regex
+        var int = $("#send_param_key").attr("int");
+        //因为enum是js的保留字 所有这里用my_enum
+        var my_enum = $("#send_param_key").attr("enum");
         var reg = $("#send_param_key").attr("regex");
+        console.log("------执行：")
+        console.log("intput_container:", input_container)
+        console.log("int:", int)
+        console.log("my_enum:", my_enum)
         console.log("reg:", reg)
+        if (int != "") {
+
+        } else if (my_enum != "") {
+
+        } else if (reg != "") {
+            console.log("reg_type", typeof(reg));
+            var reg_obj = new RegExp(reg);
+            console.log("reg_obj:",reg_obj); 
+            console.log(reg_obj.test(input_container));
+            if (!reg_obj.test(input_container)) {
+
+                //向res_echo写入内容
+                var oFont1=document.createElement("FONT"); 
+                var component_name = $("#send_param_label").text();
+                var oText1=document.createTextNode(component_name + '输入的格式有误，请检查，重新输入!!'); 
+                oFont1.style.color="red"; 
+                $("#res_echo").append(oFont1); 
+                oFont1.appendChild(oText1); 
+                //追加换行
+                var br = document.createElement("br");
+                $("#res_echo").append(br);
+                $("#res_echo").append(br);
+
+                //var source = $("#res_echo").val();
+                //error = source + "\r\n";
+                //$("#res_echo").val(error);
+
+                layer.msg("参数输入的格式有误，请检查，重新输入!!");
+                return false;
+            }
+        }
+
+
+
         //保存构造好的将要发送的串口数据
         var str ="";
         //如果input标签是"默认:",即cmd_name是默认的send_param_key
@@ -65,16 +110,24 @@ layui.use(['layer', 'form', 'element'], function(){
         var value = $(this).text()
         //取出cmd args_separator key_value_separator
         var cmd_name = $(this).attr("id");
-        var args_separator = $(this).attr("args_separator");
-        var key_value_separator = $(this).attr("key_value_separator");
+        var int = $(this).attr("int");
+        //因为enum是js的保留字 所有这里用my_enum
+        var my_enum = $(this).attr("enum");
+        var regex = $(this).attr("regex");
         console.log(cmd_name)
-        console.log("args_separator被点击",args_separator)
-        console.log("key_value_separator被点击", key_value_separator)
+        console.log("int and my_enum and regex:",int,my_enum, regex)
         //把cmd args_separator key_value_separator设置到串口参数输入区的input输入框的相应属性中去
         $("#send_param_key").attr("name", cmd_name);
         $("#send_param_label").text(value);
-        $("#send_param_key").attr("args_separator", args_separator);
-        $("#send_param_key").attr("key_value_separator", key_value_separator);
+        //先清除，再设置，不然int enum regex中，未定义的属性会设置后不会变为空串，还是上次的值
+        $("#send_param_key").attr("int", "");
+        $("#send_param_key").attr("enum", "");
+        $("#send_param_key").attr("regex", "");
+        console.log("regex:",$("#send_param_key").attr("regex"))
+        console.log("type:",typeof($("#send_param_key").attr("regex")))
+        $("#send_param_key").attr("int", int);
+        $("#send_param_key").attr("enum", my_enum);
+        $("#send_param_key").attr("regex", regex);
     })
 
     //关闭菜单项鼠标右键默认事件
@@ -92,10 +145,29 @@ layui.use(['layer', 'form', 'element'], function(){
         }
     })
 
+    //关闭串口数据回显区右键默认事件
+    $('#res_echo').on('contextmenu', function(e) {
+        return false;
+    });
+    //监听串口数据回显区的鼠标右击事件
+    $('#res_echo').on('mousedown', function(e) {
+        if (1 == e.which) {
+            console.log("你点了左键");
+        } else if (2 == e.which) {
+            console.log("你点了滚轮");
+        } else if (3 == e.which) {
+            console.log("你点了回显区右键");
+            $("#res_echo").empty();
+        }
+    })
     //监听input参数输入区的"默认:"二字是否被点击,被点击则转为串口助手模式(即发什么就是什么)
     $('#send_param_label').on('click', function() {
         $("#send_param_key").attr("name", "send_param_key");
         $("#send_param_label").text("默认:");
+        //清除上次留下的,因为默认是不需要校验的
+        $("#send_param_key").attr("int", "");
+        $("#send_param_key").attr("enum", "");
+        $("#send_param_key").attr("regex", "");
     })
 
     js_get_all_port();
