@@ -79,7 +79,7 @@ async function js_get_component_config(){
                             component_obj_html += `</dl></li>`
                         else
                             //console.log("cccccccccc-----ending")
-                            component_obj_html += `<dd><button id="` +obj3[Object.keys(obj3)[0]]+ `"` + `args_separator="` +obj3[Object.keys(obj3)[2]]+ `"` + Object.keys(obj3)[1] + `="` + obj3[Object.keys(obj3)[1]]+ `"` +  `class="layui-btn" lay-submit style="background:#1c1e24">`+key3+`</button></dd>`
+                            component_obj_html += `<dd><button id="` +obj3[Object.keys(obj3)[0]]+ `"` + `args_separator="` +obj3[Object.keys(obj3)[2]]+ `"` + Object.keys(obj3)[1] + `="` + obj3[Object.keys(obj3)[1]]+ `"` +  `class="layui-btn" lay-submit style="background:#1c1e24;margin: 0 0 0 20px;">`+key3+`</button></dd>`
                     }
                 }
                 if (key2.charAt(key2.length-1) == ":")
@@ -87,7 +87,7 @@ async function js_get_component_config(){
                     component_obj_html += `</dl></li>`
                 else
                     //console.log("bbbbbbbbbbbbbbbbbb----ending")
-                    component_obj_html += `<dd><button id="` +obj2[Object.keys(obj2)[0]]+ `"` + `args_separator="` +obj2[Object.keys(obj2)[2]]+ `"` + Object.keys(obj2)[1] + `="` + obj2[Object.keys(obj2)[1]]+ `"` +  `class="layui-btn" lay-submit style="background:#282b33">`+key2+`</button></dd>`
+                    component_obj_html += `<dd><button id="` +obj2[Object.keys(obj2)[0]]+ `"` + `args_separator="` +obj2[Object.keys(obj2)[2]]+ `"` + Object.keys(obj2)[1] + `="` + obj2[Object.keys(obj2)[1]]+ `"` +  `class="layui-btn" lay-submit style="background:#282b33;margin: 0 0 0 20px;">`+key2+`</button></dd>`
             }
         }
         if (key1.charAt(key1.length-1) == ":")
