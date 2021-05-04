@@ -74,7 +74,8 @@ layui.use(['layer', 'form', 'element'], function(){
         }
         //如果input_container没有填入任何参数
         else if (input_container == "") {
-            str = "\r\n{cmd=>" +'"'+ cmd_name +'"' + "}\r\n"
+            //str = "\r\n{cmd=>" +'"'+ cmd_name +'"' + "}\r\n"
+            str = "\r\n" + cmd_name + "\r\n"
         }
         //如果参数只有一个,即不存在args_separator,如:cmd=>"set_server_ip",ip=>"127.0.0.1"(注意:在不存在args_separator时，set_server_ip的ip必须以_开始，因为ip=>"127.0.0.1"的ip是通过cmd_name的最后一个_字段来确定的),在input只要输入127.0.0.1
         //input_container不包含args_separator
