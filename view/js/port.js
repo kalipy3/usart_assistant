@@ -33,3 +33,8 @@ async function js_open_port(res){
     }
 }
 
+//用户点击html中的搜索串口按钮
+// 调用python中的函数
+async function js_search_port(){  
+    await js_get_all_port()
+}

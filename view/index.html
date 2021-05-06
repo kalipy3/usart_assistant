@@ -37,6 +37,11 @@
                     </div>
                     <div class="header_right">
                         <div class="layui-input-block">
+                            <button id="search_usart_btn" class="layui-btn" lay-submit lay-filter="search_usart_btn">搜索串口</button>
+                        </div>
+                    </div>
+                    <div class="header_right">
+                        <div class="layui-input-block">
                             <button id="open_usart_btn" class="layui-btn" lay-submit lay-filter="open_usart_btn">打开串口</button>
                         </div>
                     </div>
@@ -77,9 +82,9 @@
                         </form>
                     </div>
 
-                    <div class="res_echo_layui layui-side-scroll" style="width: 100%; background: white">
-                        <div class="resultEcho" style="display: flex; flex-direction: column; height: 100%">
-                            <div class="res_container" style="height: 100%">
+                    <div class="res_echo_layui layui-side-scroll" id="res_echo_layui" style="width: 100%; background: white">
+                        <div class="resultEcho" id="resultEcho" style="display: flex; flex-direction: column; height: 100%">
+                            <div class="res_container" id="res_container" style="height: 100%">
                                 <div id="res_echo" name="usart_echo" placeholder="结果回显区暂无内容" style="background: white; height: 100%"></div>
                             </div>
                         </div>

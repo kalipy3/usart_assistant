@@ -25,7 +25,10 @@ function js_recv(res_from_py){
     $("#res_echo").append(oFont1); 
     oFont1.appendChild(pre); 
     pre.appendChild(oText1); 
-    oFont1.appendChild(pre); 
+    oFont1.appendChild(pre);
+
+    var ele = document.getElementById('res_echo_layui');
+    ele.scrollTop = ele.scrollHeight;
 }
 
 // 调用python中的函数 把html中串口参数输入区中用户输入的数据发送给串口
