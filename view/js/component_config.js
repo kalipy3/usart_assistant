@@ -17,7 +17,7 @@ async function js_get_component_config(){
     for (var key1 in component_obj) {
         if (key1.charAt(key1.length-1) == ":")
             //console.log("a----------------------", key1)
-            component_obj_html += `<li class="layui-nav-item layui-nav-item"><a href="javascript:;">`+key1+`</a><dl class="layui-nav-child">`
+            component_obj_html += `<li class="layui-nav-item layui-nav-item"><a href="javascript:;">`+key1.substring(0, key1.length-1)+`</a><dl class="layui-nav-child">`
         else
             console.log("aaaaaaaaaaaaaaaaaa")
         console.log("level1的功能控件数量为:", Object.keys(component_obj).length)//获取对象长度
@@ -31,7 +31,7 @@ async function js_get_component_config(){
             for (var key2 in obj) {
                 if (key2.charAt(key2.length-1) == ":")
                     //console.log("b----------------------", key2)
-                    component_obj_html += `<li class="layui-nav-item layui-nav-item"><a href="javascript:;">`+key2+`</a><dl class="layui-nav-child">`
+                    component_obj_html += `<li class="layui-nav-item layui-nav-item"><a href="javascript:;" style="margin: 0 0 0 20px;">`+key2.substring(0, key2.length-1)+`</a><dl class="layui-nav-child">`
                 else
                     console.log("bbbbbbbbbbbbbbbbbb")
                 console.log("level2的功能控件名为:", key2)
@@ -44,7 +44,7 @@ async function js_get_component_config(){
                     for (var key3 in obj2) {
                         if (key3.charAt(key3.length-1) == ":")
                             //console.log("c----------------------", key3)
-                            component_obj_html += `<li class="layui-nav-item layui-nav-item"><a href="javascript:;">`+key3+`</a><dl class="layui-nav-child">`
+                            component_obj_html += `<li class="layui-nav-item layui-nav-item"><a href="javascript:;" style="margin: 0 0 0 40px;">`+key3.substring(0, key3.length-1)+`</a><dl class="layui-nav-child">`
                         else
                             console.log("cccccccccc")
                         console.log("level3的功能控件名为:", key3)
@@ -57,7 +57,7 @@ async function js_get_component_config(){
                             for (var key4 in obj3) {
                                 if (key4.charAt(key4.length-1) == ":")
                                     //console.log("d----------------------", key4)
-                                    component_obj_html += `<li class="layui-nav-item layui-nav-item"><a href="javascript:;">`+key4+`</a><dl class="layui-nav-child">`
+                                    component_obj_html += `<li class="layui-nav-item layui-nav-item"><a href="javascript:;" style="margin: 0 0 0 0px;">`+key4.substring(0, key4.length-1)+`</a><dl class="layui-nav-child">`
                                 else
                                     console.log("ddddddddddd")
                                 console.log("level4的功能控件名为:", key4)
@@ -71,7 +71,7 @@ async function js_get_component_config(){
                                     component_obj_html += `</dl></li>`
                                 else
                                     //console.log("ddddddddddd----ending")
-                                    component_obj_html += `<dd><button id="` +obj4[Object.keys(obj4)[0]]+ `"` + `args_separator="` +obj4[Object.keys(obj4)[2]]+ `"` + Object.keys(obj4)[1] + `="` + obj4[Object.keys(obj4)[1]]+ `"` +  `class="layui-btn" lay-submit style="background:#141519">`+key4+`</button></dd>`
+                                    component_obj_html += `<dd><button id="` +obj4[Object.keys(obj4)[0]]+ `"` + `args_separator="` +obj4[Object.keys(obj4)[2]]+ `"` + Object.keys(obj4)[1] + `="` + obj4[Object.keys(obj4)[1]]+ `"` +  `class="layui-btn" lay-submit style="background:#141519;margin: 0 0 0 60px;">`+key4+`</button></dd>`
                             }
                         } 
                         if (key3.charAt(key3.length-1) == ":") 
@@ -79,7 +79,7 @@ async function js_get_component_config(){
                             component_obj_html += `</dl></li>`
                         else
                             //console.log("cccccccccc-----ending")
-                            component_obj_html += `<dd><button id="` +obj3[Object.keys(obj3)[0]]+ `"` + `args_separator="` +obj3[Object.keys(obj3)[2]]+ `"` + Object.keys(obj3)[1] + `="` + obj3[Object.keys(obj3)[1]]+ `"` +  `class="layui-btn" lay-submit style="background:#1c1e24;margin: 0 0 0 20px;">`+key3+`</button></dd>`
+                            component_obj_html += `<dd><button id="` +obj3[Object.keys(obj3)[0]]+ `"` + `args_separator="` +obj3[Object.keys(obj3)[2]]+ `"` + Object.keys(obj3)[1] + `="` + obj3[Object.keys(obj3)[1]]+ `"` +  `class="layui-btn" lay-submit style="background:#1c1e24;margin: 0 0 0 40px;">`+key3+`</button></dd>`
                     }
                 }
                 if (key2.charAt(key2.length-1) == ":")
