@@ -153,11 +153,26 @@ layui.use(['layer', 'form', 'element'], function(){
         return false;
     });
     //监听串口数据回显区的鼠标右击事件
+    let toggle = 0
+    window.localStorage.setItem('blackground_toggle', JSON.stringify({flag: false}))
     $('.res_echo_layui').on('mousedown', function(e) {
         if (1 == e.which) {
             console.log("你点了左键");
         } else if (2 == e.which) {
+            console.log("blackground_toggle localStorage:", JSON.parse(window.localStorage.getItem('blackground_toggle')).flag)
+            toggle = JSON.parse(window.localStorage.getItem('blackground_toggle')).flag
             console.log("你点了滚轮");
+            if (toggle == false) {
+                $('#res_echo_layui').css("background","black")
+                $('#res_echo').css("background","black")
+                $('#res_echo > font').css("color", "white")//上次的会无效，应该是没有重新渲染的原因,所以要用localStorage在生成dom元素的时候也要根据toggle设置颜色
+            } else {
+                $('#res_echo_layui').css("background","white")
+                $('#res_echo').css("background","white")
+                $('#res_echo > font').css("color", "green")//上次的会无效，应该是没有重新渲染的原因,所以要用localStorage在生成dom元素的时候也要根据toggle设置颜色
+            }
+            toggle = !toggle
+            window.localStorage.setItem('blackground_toggle', JSON.stringify({flag: toggle}))
         } else if (3 == e.which) {
             $("#res_echo").empty();
             console.log("你点了回显区右键");

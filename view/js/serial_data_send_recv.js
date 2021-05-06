@@ -21,7 +21,14 @@ function js_recv(res_from_py){
     var pre=document.createElement("pre");
     //被<pre></pre>包围的res_from_py等text中的"\r\n"等特殊字符才会被浏览器识别
     var oText1=document.createTextNode(res_from_py); 
-    oFont1.style.color="green"; 
+
+    let toggle = JSON.parse(window.localStorage.getItem('blackground_toggle')).flag
+    if (toggle == true) {
+        oFont1.style.color="white"; 
+    } else {
+        oFont1.style.color="green"; 
+    } 
+
     $("#res_echo").append(oFont1); 
     oFont1.appendChild(pre); 
     pre.appendChild(oText1); 
