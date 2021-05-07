@@ -5,15 +5,15 @@
  * Distributed under terms of the MIT license.
  */
 let $;
+
 //一般直接写在一个js文件中
 layui.use(['layer', 'form', 'element'], function(){
     var layer = layui.layer
     var form = layui.form;
     var element = layui.element;
     $ = layui.jquery;
-    
-    //监听send_data发送数据给串口的提交
-    form.on('submit(send_data_btn)', function(){
+
+    function echo_data(){
         //取出input_container cmd args_separator key_value_separator 
         var input_container=$("#send_param_key").val();
         var cmd_name = $("#send_param_key").attr("name");
@@ -97,7 +97,10 @@ layui.use(['layer', 'form', 'element'], function(){
 
         js_send_data(str);
         return false;
-    });
+    }
+    
+    //监听send_data发送数据给串口的提交
+    form.on('submit(send_data_btn)', echo_data);
 
     //监听打开串口的提交
     form.on('submit(open_usart_btn)', function(data){
@@ -131,6 +134,8 @@ layui.use(['layer', 'form', 'element'], function(){
         $("#send_param_key").attr("regex", regex);
        
         $("#send_param_key").val("")
+
+        echo_data()//不用回车，直接点击相应菜单项就会发送命令,如果要关闭点击相应菜单项就发送命令的功能，请把这行代码注释掉
     })
 
     //关闭菜单项鼠标右键默认事件
@@ -209,6 +214,13 @@ layui.use(['layer', 'form', 'element'], function(){
     $('#search_usart_btn').on('click', function(){
         console.log("搜索串口按钮被点击..")
         js_search_port();
+    });
+    
+    //监听清空数据回显区按钮的点击事件
+    $('#clear_usart_btn').on('click', function(){
+        console.log("清空按钮被点击..")
+        $("#send_param_key").val("")
+        $("#res_echo").empty();
     });
 
     //全局绑定回车事件
