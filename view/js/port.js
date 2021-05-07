@@ -38,3 +38,19 @@ async function js_open_port(res){
 async function js_search_port(){  
     await js_get_all_port()
 }
+
+function js_close_port() {
+    layui.layer.msg("串口线已断开!")
+    var label = $("#open_usart_btn").html();
+    var label = $("#open_usart_btn").text("打开串口");
+}
+
+function js_port_occupyed_msgbox() {
+    layui.layer.msg("打开失败,串口未连接或已被其它程序占用!")
+    var label = $("#open_usart_btn").html();
+    var label = $("#open_usart_btn").text("打开串口");
+}
+//把js暴露给python调用
+window.eel.expose(js_close_port, "js_close_port")
+//把js暴露给python调用
+window.eel.expose(js_port_occupyed_msgbox, "js_port_occupyed_msgbox")

@@ -42,8 +42,18 @@ def py_open_port(res_from_js): #res_from_js是js返回过来的参数
     #取出dict对应key的value
     usart_name = res_from_js['usart_name']
     baud_rate = res_from_js['baud_rate']
-    # 请注意:为了不与import serial中的serial命名冲突，这里写作g_serial
-    g_serial = serial.Serial(usart_name,baud_rate, timeout=0.5)
+    
+    try:
+        # 请注意:为了不与import serial中的serial命名冲突，这里写作g_serial
+        g_serial = serial.Serial(usart_name,baud_rate, timeout=0.5)
+    except Exception as e:
+        #print(type(e))
+        print(e.__str__())#把class转换成toString()
+        if e.__str__().find('could not open port')>=0 or e.__str__().find('busy')>=0:
+            print("串口已被其它程序占用!")
+            eel.js_port_occupyed_msgbox()
+            return;
+
     my_global.g_set_serial(g_serial)
     if g_serial.isOpen() :
         print("open serial port success")

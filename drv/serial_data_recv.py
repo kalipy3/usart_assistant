@@ -13,15 +13,28 @@ import serial
 from time import sleep
 import threading
 import my_global
+import serial_port_control
 #----------------------------------------------------------------------------------------------------------
 
 #----------------------------------------------------------------------------------------------------------
 # 接收一帧数据
 def recv(serial):
     while True:
-        # 请不要用read_all(),这个函数接收数据还是会断断续续，即不是一个完整的帧数据
-        data = serial.readall()
-        #sleep(0.5)
+        try:
+            # 请不要用read_all(),这个函数接收数据还是会断断续续，即不是一个完整的帧数据
+            data = serial.readall()
+            #sleep(0.5)
+        except Exception as e:
+            #print(type(e))
+            print(e.__str__())#把class转换成toString()
+            if e.__str__() == 'device reports readiness to read but returned no data (device disconnected or multiple access on port?)':
+                print('Failed, 串口线已断开!')
+                my_global.g_get_serial().close()
+                #py调用js
+                eel.js_close_port()
+                print("port closed with -1")
+                return "".encode('utf-8')
+
         if data == '':
             continue
         else:
