@@ -24,7 +24,8 @@
     },
     "控制:": {
         "开启调试信息": {
-            "cmd": "debug=>1"
+            "cmd": "debug=>1",
+            "input_args": "args1, args2"
         },
         "关闭调试信息": {
             "cmd": "debug=>0"

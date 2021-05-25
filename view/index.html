@@ -42,7 +42,7 @@
                     </div>-->
                     <div class="header_right">
                         <div class="layui-input-block">
-                            <button id="search_usart_btn" class="layui-btn" lay-submit lay-filter="search_usart_btn">搜索串口</button>
+                            <button type="button" id="search_usart_btn" class="layui-btn" lay-submit lay-filter="search_usart_btn">搜索串口</button>
                         </div>
                     </div>
                     <div class="header_right">
@@ -74,13 +74,14 @@
                             <div class="paramInput_inner">
                                 <div class="paramInput_a" style="display: flex; flex: 6;">
                                     <div class="label" style="display: flex; flex: 1;"><label id="send_param_label" name="send_param_label" class="layui-form-label" style="width: auto; margin: 0 auto;">默认:</label></div>
-                                    <div class="gg" style="flex: 4;">
-                                        <input type="text" name="send_param_key" id="send_param_key" args_separator="," key_value_separator="=>" placeholder="请输入参数,回车执行(若该命令不需要参数，请直接点击执行即可)" autocomplete="off" class="layui-input">
+                                    <div class="gg" style="flex: 4; display: flex; background: antiquewhite;">
+                                        <input type="text" name="send_param_key" id="send_param_key" args_separator="," key_value_separator="=" placeholder="请输入参数,回车执行(若该命令不需要参数，请直接点击执行即可)" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="paramInput_b">
                                     <div class="qq">
-                                        <button id="send_data_btn" class="layui-btn" lay-submit lay-filter="send_data_btn">执行</button>
+                                        <!--因为button标签按钮会提交表单,因此要阻止这种行为。 方法一: 加入这句type="button"  方法二: 在button的点击事件中加入“e.preventDefult()”-->
+                                        <button type="button" id="send_data_btn" class="layui-btn" >执行</button>
                                     </div>
                                 </div>
                             </div>

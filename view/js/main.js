@@ -12,87 +12,81 @@ layui.use(['layer', 'form', 'element'], function(){
     var form = layui.form;
     var element = layui.element;
     $ = layui.jquery;
+    
+    window.cmd_name = ""
+    window.args_arr = [] 
 
     function echo_data(){
-        //取出input_container cmd args_separator key_value_separator 
+        //取出input_container 
         var input_container=$("#send_param_key").val();
-        var cmd_name = $("#send_param_key").attr("name");
-        //var args_separator = $("#send_param_key").attr("args_separator");
-        //var key_value_separator = $("#send_param_key").attr("key_value_separator");
-        
-        //用户在串口输入区的input输入框中输入的数据的合法性的前端校验
-        //input_data_verify()
-        //取出int enum regex
-        var int = $("#send_param_key").attr("int");
-        //因为enum是js的保留字 所有这里用my_enum
-        var my_enum = $("#send_param_key").attr("enum");
-        var reg = $("#send_param_key").attr("regex");
-        console.log("------执行：")
-        console.log("intput_container:", input_container)
-        console.log("int:", int)
-        console.log("my_enum:", my_enum)
-        console.log("reg:", reg)
-        if (int != "") {
-
-        } else if (my_enum != "") {
-
-        } else if (reg != "") {
-            console.log("reg_type", typeof(reg));
-            var reg_obj = new RegExp(reg);
-            console.log("reg_obj:",reg_obj); 
-            console.log(reg_obj.test(input_container));
-            if (!reg_obj.test(input_container)) {
-
-                //向res_echo写入内容
-                var oFont1=document.createElement("FONT"); 
-                var component_name = $("#send_param_label").text();
-                var oText1=document.createTextNode(component_name + '输入的格式有误，请检查，重新输入!!'); 
-                oFont1.style.color="red"; 
-                $("#res_echo").append(oFont1); 
-                oFont1.appendChild(oText1); 
-                //追加换行
-                var br = document.createElement("br");
-                $("#res_echo").append(br);
-                $("#res_echo").append(br);
-
-                //var source = $("#res_echo").val();
-                //error = source + "\r\n";
-                //$("#res_echo").val(error);
-
-                layer.msg("参数输入的格式有误，请检查，重新输入!!");
-                return false;
-            }
-        }
-
-
+        var cmd_name_label = $("#send_param_key").attr("name");
 
         //保存构造好的将要发送的串口数据
         var str ="";
         //如果input标签是"默认:",即cmd_name是默认的send_param_key
-        if (cmd_name == "send_param_key") {
+        if (cmd_name_label == "send_param_key") {
             str = input_container;
         }
-        //如果input_container没有填入任何参数
-        else if (input_container == "") {
+        //如果input_container为空，表示该命令没有input_args
+        else if (input_container == undefined) {
             //str = "\r\n{cmd=>" +'"'+ cmd_name +'"' + "}\r\n"
             str = "\r\n" + cmd_name + "\r\n"
         }
-        //如果参数只有一个,即不存在args_separator,如:cmd=>"set_server_ip",ip=>"127.0.0.1"(注意:在不存在args_separator时，set_server_ip的ip必须以_开始，因为ip=>"127.0.0.1"的ip是通过cmd_name的最后一个_字段来确定的),在input只要输入127.0.0.1
-        //input_container不包含args_separator
-        else if (input_container.indexOf(",") == -1) {
-            //则构造字符串的方法为:
-            var cmd_name_xx = cmd_name.substring(cmd_name.lastIndexOf("_")+1, cmd_name.length);//提取cmd_name的后_字段
-            str = "\r\n{cmd=>" + '"'+ cmd_name +'"'+ "," + cmd_name_xx + "=>" +'"'+ input_container +'"'+ "}\r\n"
-        } 
-        //如果参数大于2个，即存在args_separator，如:\r\n{cmd=>"led_act",led0=>"on"}\r\n,在input中输入为led0,on
-        //则构造字符串的方法为: 
-        //input_container包含args_separator
-        else if (input_container.indexOf(",") != -1) {
-            //则构造字符串的方法为:
-            var before = input_container.substring(0, input_container.indexOf(","));//提取args_separator前面的led0
-            var after = input_container.substring(input_container.indexOf(",")+1, input_container.length);//提取args_separator后面的on
-            str = "\r\n{cmd" + "=>" +'"'+ cmd_name +'"'+ "," + before + "=>" +'"'+ after +'"'+ "}\r\n"
-        } 
+        
+        layer.msg(str);
+
+        js_send_data(str);
+        return false;
+    }
+
+    function echo_data_with_input_args(){
+        //如果input标签是"默认:",即cmd_name是默认的send_param_key
+        if (args_arr.length == 0) {
+            //取出input_container 
+            var input_container=$("#send_param_key").val();
+            var cmd_name_label = $("#send_param_key").attr("name");
+
+            //保存构造好的将要发送的串口数据
+            let str ="";
+            //如果input标签是"默认:",即cmd_name是默认的send_param_key
+            if (cmd_name_label == "send_param_key") {
+                str = input_container;
+            }
+            //如果input_container为空，表示该命令没有input_args
+            else if (input_container == undefined) {
+                //str = "\r\n{cmd=>" +'"'+ cmd_name +'"' + "}\r\n"
+                str = "\r\n" + cmd_name + "\r\n"
+            }
+            
+            layer.msg(str);
+
+            js_send_data(str);
+            return false;
+        }
+
+        //input_args参数校验
+        console.log("8888888:", args_arr)
+        for (let i=0; i<args_arr.length; i++) {
+            if (($("#"+args_arr[i]).val()) == undefined || ($("#"+args_arr[i]).val())=="") {
+                layer.msg("错误，请检查命令的参数是否填写正确!");
+                return;
+            }
+        }
+
+        //保存构造好的将要发送的串口数据($.trim($("#"+args_arr[0]).val()))
+        let str = "\r\n" + cmd_name + "?" + args_arr[0] + "=" + ($.trim($("#"+args_arr[0]).val()));
+
+        if (args_arr.length == 1) {
+            str = "\r\n" + cmd_name + "?" + args_arr[0] + "=" + ($.trim($("#"+args_arr[0]).val())) + "\r\n"
+        } else if (args_arr.length > 1) {
+            for (let i=1; i<args_arr.length; i++) {
+                str += "&" + args_arr[i] + "=" + ($.trim($("#"+args_arr[i]).val()))
+            }
+            str += "\r\n"
+        }
+
+        console.log("------执行：")
+
         layer.msg(str);
 
         js_send_data(str);
@@ -100,7 +94,10 @@ layui.use(['layer', 'form', 'element'], function(){
     }
     
     //监听send_data发送数据给串口的提交
-    form.on('submit(send_data_btn)', echo_data);
+    //form.on('submit(send_data_btn)', echo_data_with_input_args());
+    $('#send_data_btn').click(function() {
+        echo_data_with_input_args()
+    })
 
     //监听打开串口的提交
     form.on('submit(open_usart_btn)', function(data){
@@ -111,31 +108,48 @@ layui.use(['layer', 'form', 'element'], function(){
     //动态监听菜单项点击事件 button是未来动态加入的按钮
     $('#param_item_list').on('click', "button", function() {
         console.log('click!')
+       
         var value = $(this).text()
-        //取出cmd args_separator key_value_separator
-        var cmd_name = $(this).attr("id");
-        var int = $(this).attr("int");
-        //因为enum是js的保留字 所有这里用my_enum
-        var my_enum = $(this).attr("enum");
-        var regex = $(this).attr("regex");
-        console.log(cmd_name)
-        console.log("int and my_enum and regex:",int,my_enum, regex)
-        //把cmd args_separator key_value_separator设置到串口参数输入区的input输入框的相应属性中去
-        $("#send_param_key").attr("name", cmd_name);
         $("#send_param_label").text(value);
-        //先清除，再设置，不然int enum regex中，未定义的属性会设置后不会变为空串，还是上次的值
-        $("#send_param_key").attr("int", "");
-        $("#send_param_key").attr("enum", "");
-        $("#send_param_key").attr("regex", "");
-        console.log("regex:",$("#send_param_key").attr("regex"))
-        console.log("type:",typeof($("#send_param_key").attr("regex")))
-        $("#send_param_key").attr("int", int);
-        $("#send_param_key").attr("enum", my_enum);
-        $("#send_param_key").attr("regex", regex);
+
+        //移除上次残留的所有的input_args输入框 起清空作用
+        $(".gg").empty();//.gg是参数输入区的class
+        cmd_name = ""
+        args_arr.length = 0
+
+        //取出cmd input_args
+        //let cmd_name = $(this).attr("id");
+        cmd_name = $(this).attr("id");
+        var input_args = $(this).attr("input_args");
+        console.log(cmd_name)
+        console.log("input_args:", input_args)
+
+        if (input_args == undefined) {
+            echo_data()//不带input_args的//不用回车，直接点击相应菜单项就会发送命令,如果要关闭点击相应菜单项就发送命令的功能，请把这行代码注释掉
+            return;
+        }
+
+        //解析分割input_args提取出args1,args2,...
+        //let args_arr = [] 
+        if (input_args != undefined) {
+            args_arr = input_args.split(",")
+
+            //开始根据input_args的内容动态生成button参数输入框
+            let input_args_obj_html = ""
+            for (let i=0; i<args_arr.length; i++) {
+                //去掉args_arr元素的前后空格
+                args_arr[i] = $.trim(args_arr[i])    
+
+                input_args_obj_html += `<div style="display: flex;"><span style="padding: 9px 15px;">`+ args_arr[i] +`:</span><input type="text" id="` +args_arr[i]+ `"` + `cmd_name="` + cmd_name + `"` + ` placeholder="请输入参数" autocomplete="off" class="layui-input"></div>`
+            }
+            $(".gg").append(input_args_obj_html);//.gg是参数输入区的class
+            //更新layui,不然动态生成的layui_html标签不起作用
+            layui.element.init();
+        }
        
         $("#send_param_key").val("")
 
-        echo_data()//不用回车，直接点击相应菜单项就会发送命令,如果要关闭点击相应菜单项就发送命令的功能，请把这行代码注释掉
+        //echo_data_with_input_args(cmd_name, args_arr)//不用回车，直接点击相应菜单项就会发送命令,如果要关闭点击相应菜单项就发送命令的功能，请把这行代码注释掉
     })
 
     //关闭菜单项鼠标右键默认事件
@@ -202,12 +216,23 @@ layui.use(['layer', 'form', 'element'], function(){
     
     //监听input参数输入区的"默认:"二字是否被点击,被点击则转为串口助手模式(即发什么就是什么)
     $('#send_param_label').on('click', function() {
+        //移除所有上次残留的input_args输入框 起清空作用
+        $(".gg").empty();//.gg是参数输入区的class
+        cmd_name = ""
+        args_arr.length = 0
+        
         $("#send_param_key").attr("name", "send_param_key");
         $("#send_param_label").text("默认:");
         //清除上次留下的,因为默认是不需要校验的
         $("#send_param_key").attr("int", "");
         $("#send_param_key").attr("enum", "");
         $("#send_param_key").attr("regex", "");
+
+        //加上input输入框
+        let input_obj_html = `<input type="text" name="send_param_key" id="send_param_key" args_separator="," key_value_separator="=" placeholder="请输入参数,回车执行(若该命令不需要参数，请直接点击执行即可)" autocomplete="off" class="layui-input">`
+        $(".gg").append(input_obj_html);//.gg是参数输入区的class
+        //更新layui,不然动态生成的layui_html标签不起作用
+        layui.element.init();
     })
     
     //监听搜索串口按钮的点击事件
@@ -234,88 +259,8 @@ layui.use(['layer', 'form', 'element'], function(){
         {
             //event
             console.log("回车!!!!!")
-            //取出input_container cmd args_separator key_value_separator 
-            var input_container=$("#send_param_key").val();
-            var cmd_name = $("#send_param_key").attr("name");
-            //var args_separator = $("#send_param_key").attr("args_separator");
-            //var key_value_separator = $("#send_param_key").attr("key_value_separator");
+            echo_data_with_input_args()
 
-            //用户在串口输入区的input输入框中输入的数据的合法性的前端校验
-            //input_data_verify()
-            //取出int enum regex
-            var int = $("#send_param_key").attr("int");
-            //因为enum是js的保留字 所有这里用my_enum
-            var my_enum = $("#send_param_key").attr("enum");
-            var reg = $("#send_param_key").attr("regex");
-            console.log("------执行：")
-            console.log("intput_container:", input_container)
-            console.log("int:", int)
-            console.log("my_enum:", my_enum)
-            console.log("reg:", reg)
-            if (int != "") {
-
-            } else if (my_enum != "") {
-
-            } else if (reg != "") {
-                console.log("reg_type", typeof(reg));
-                var reg_obj = new RegExp(reg);
-                console.log("reg_obj:",reg_obj); 
-                console.log(reg_obj.test(input_container));
-                if (!reg_obj.test(input_container)) {
-
-                    //向res_echo写入内容
-                    var oFont1=document.createElement("FONT"); 
-                    var component_name = $("#send_param_label").text();
-                    var oText1=document.createTextNode(component_name + '输入的格式有误，请检查，重新输入!!'); 
-                    oFont1.style.color="red"; 
-                    $("#res_echo").append(oFont1); 
-                    oFont1.appendChild(oText1); 
-                    //追加换行
-                    var br = document.createElement("br");
-                    $("#res_echo").append(br);
-                    $("#res_echo").append(br);
-
-                    //var source = $("#res_echo").val();
-                    //error = source + "\r\n";
-                    //$("#res_echo").val(error);
-
-                    layer.msg("参数输入的格式有误，请检查，重新输入!!");
-                    return false;
-                }
-            }
-
-
-
-            //保存构造好的将要发送的串口数据
-            var str ="";
-            //如果input标签是"默认:",即cmd_name是默认的send_param_key
-            if (cmd_name == "send_param_key") {
-                str = input_container;
-            }
-            //如果input_container没有填入任何参数
-            else if (input_container == "") {
-                //str = "\r\n{cmd=>" +'"'+ cmd_name +'"' + "}\r\n"
-                str = "\r\n" + cmd_name + "\r\n"
-            }
-            //如果参数只有一个,即不存在args_separator,如:cmd=>"set_server_ip",ip=>"127.0.0.1"(注意:在不存在args_separator时，set_server_ip的ip必须以_开始，因为ip=>"127.0.0.1"的ip是通过cmd_name的最后一个_字段来确定的),在input只要输入127.0.0.1
-            //input_container不包含args_separator
-            else if (input_container.indexOf(",") == -1) {
-                //则构造字符串的方法为:
-                var cmd_name_xx = cmd_name.substring(cmd_name.lastIndexOf("_")+1, cmd_name.length);//提取cmd_name的后_字段
-                str = "\r\n{cmd=>" + '"'+ cmd_name +'"'+ "," + cmd_name_xx + "=>" +'"'+ input_container +'"'+ "}\r\n"
-            } 
-            //如果参数大于2个，即存在args_separator，如:\r\n{cmd=>"led_act",led0=>"on"}\r\n,在input中输入为led0,on
-            //则构造字符串的方法为: 
-            //input_container包含args_separator
-            else if (input_container.indexOf(",") != -1) {
-                //则构造字符串的方法为:
-                var before = input_container.substring(0, input_container.indexOf(","));//提取args_separator前面的led0
-                var after = input_container.substring(input_container.indexOf(",")+1, input_container.length);//提取args_separator后面的on
-                str = "\r\n{cmd" + "=>" +'"'+ cmd_name +'"'+ "," + before + "=>" +'"'+ after +'"'+ "}\r\n"
-            } 
-            layer.msg(str);
-
-            js_send_data(str);
             return false;
         }
     }
