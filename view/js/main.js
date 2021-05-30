@@ -256,6 +256,32 @@ layui.use(['layer', 'form', 'element'], function(){
         $("#send_param_key").val("")//数据发送区
         $("#res_echo").empty();//数据回显区
     });
+    
+    function download_usart_data() {
+        let usart_data = $("#res_echo").text();//数据回显区 text()是剔除html标签获取内容
+        var blob = new Blob([usart_data], {type: 'text/plain;charset=utf-8'})
+        var url = window.URL.createObjectURL(blob)
+        var link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', "usart_data.txt")
+        link.click()
+    }
+   
+    //不知道为什么不起作用
+    function download_usart_data2() {
+        let usart_data = $("#res_echo").text();//数据回显区 text()是剔除html标签获取内容
+        var w = window.open(usart_data, "_blank", "width=100,height=100")
+        w.document.execCommand("SaveAs")
+        w.close()
+    }
+
+    //监听保存串口数据按钮的点击事件
+    $('#save_usart_data_btn').on('click', function(){
+        console.log("保存串口数据按钮被点击..")
+        let usart_data = $("#res_echo").text();//数据回显区 text()是剔除html标签获取内容
+        console.log("usart_data:", usart_data)
+        download_usart_data()
+    });
 
     //全局绑定回车事件
     document.onkeydown = function(e)
