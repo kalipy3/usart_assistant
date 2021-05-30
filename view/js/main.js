@@ -325,7 +325,7 @@ layui.use(['layer', 'form', 'element'], function(){
         if (label == "关闭串口") {
             var label = $("#open_usart_btn").text("打开串口");
             eel.py_close_port()();
-        } 
+        }
     }
 
     //全局绑定回车事件
@@ -348,5 +348,8 @@ layui.use(['layer', 'form', 'element'], function(){
 
     js_get_all_port();
     js_get_component_config();
+    
+    //设置页面title为串口助手
+    document.title="串口助手"
 });
 
