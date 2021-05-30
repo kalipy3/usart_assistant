@@ -236,10 +236,19 @@ layui.use(['layer', 'form', 'element'], function(){
     })
     
     //监听搜索串口按钮的点击事件
-    $('#search_usart_btn').on('click', function(){
-        console.log("搜索串口按钮被点击..")
-        js_search_port();
-    });
+    //$('#search_usart_btn').on('click', function(){
+    //    console.log("搜索串口按钮被点击..")
+    //    js_search_port();
+    //});
+    function open_usart_timer() {
+        console.log("串口定时刷新已开启")
+        timer = setInterval(() => {
+            setTimeout(()=>{
+                js_search_port();
+            },0)
+        }, 1000)
+    }
+    open_usart_timer()
     
     //监听清空数据回显区按钮的点击事件
     $('#clear_usart_btn').on('click', function(){
