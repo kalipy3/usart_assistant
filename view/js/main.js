@@ -318,6 +318,16 @@ layui.use(['layer', 'form', 'element'], function(){
         window.localStorage.setItem('blackground_toggle', JSON.stringify({flag: toggle}))
     });
 
+    //监听刷新事件
+    window.onbeforeunload = function(e) {
+        console.log("刷新事件..")
+        var label = $("#open_usart_btn").html();
+        if (label == "关闭串口") {
+            var label = $("#open_usart_btn").text("打开串口");
+            eel.py_close_port()();
+        } 
+    }
+
     //全局绑定回车事件
     document.onkeydown = function(e)
     {
