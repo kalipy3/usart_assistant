@@ -15,6 +15,7 @@ layui.use(['layer', 'form', 'element'], function(){
     
     window.cmd_name = ""
     window.args_arr = [] 
+    window.args_danwei = [] 
 
     function echo_data(){
         //取出input_container 
@@ -116,6 +117,7 @@ layui.use(['layer', 'form', 'element'], function(){
         $(".gg").empty();//.gg是参数输入区的class
         cmd_name = ""
         args_arr.length = 0
+        args_danwei.length = 0
 
         //取出cmd input_args
         //let cmd_name = $(this).attr("id");
@@ -128,11 +130,23 @@ layui.use(['layer', 'form', 'element'], function(){
             echo_data()//不带input_args的//不用回车，直接点击相应菜单项就会发送命令,如果要关闭点击相应菜单项就发送命令的功能，请把这行代码注释掉
             return;
         }
-
+        
         //解析分割input_args提取出args1,args2,...
         //let args_arr = [] 
         if (input_args != undefined) {
             args_arr = input_args.split(",")
+
+            console.log("9999", args_arr)
+            //解析分割input_args提取出args1的单位,args2的单位,...
+            //以"/"提取出args和单位，split后，偶数项是args,奇数项是单位
+            let arg_and_danwei = []
+            for (let i=0; i<args_arr.length; i++) {
+                arg_and_danwei = args_arr[i].split("/")
+                args_arr[i] = arg_and_danwei[0]//参数名
+                args_danwei.push(arg_and_danwei[1])//参数的单位
+                console.log("参数i:", args_arr[i]);
+                console.log("参数单位i:", args_danwei[i]);
+            }
 
             //开始根据input_args的内容动态生成button参数输入框
             let input_args_obj_html = ""
@@ -140,7 +154,7 @@ layui.use(['layer', 'form', 'element'], function(){
                 //去掉args_arr元素的前后空格
                 args_arr[i] = $.trim(args_arr[i])    
 
-                input_args_obj_html += `<div style="display: flex;"><span style="padding: 9px 15px;">`+ args_arr[i] +`:</span><input type="text" id="` +args_arr[i]+ `"` + `cmd_name="` + cmd_name + `"` + ` placeholder="请输入参数" autocomplete="off" class="layui-input"></div>`
+                input_args_obj_html += `<div style="display: flex; background: #d2d2d2; margin: 0 0 0 10px;"><span style="padding: 9px 15px;">`+ args_arr[i] +`:</span><input type="text" id="` +args_arr[i]+ `"` + `cmd_name="` + cmd_name + `"` + ` placeholder="请输入参数,单位是`+ args_danwei[i] +  `"` + ` autocomplete="off" class="layui-input"><span style="padding: 9px 3px;">` + args_danwei[i] + `</span></div>`
             }
             $(".gg").append(input_args_obj_html);//.gg是参数输入区的class
             //更新layui,不然动态生成的layui_html标签不起作用
@@ -168,9 +182,9 @@ layui.use(['layer', 'form', 'element'], function(){
     })
 
     //关闭串口数据回显区右键默认事件
-    $('.res_echo_layui').on('contextmenu', function(e) {
-        return false;
-    });
+    //$('.res_echo_layui').on('contextmenu', function(e) {
+    //    return false;
+    //});
     //监听串口数据回显区的鼠标右击事件
     let toggle = 0
     window.localStorage.setItem('blackground_toggle', JSON.stringify({flag: false}))
@@ -221,6 +235,7 @@ layui.use(['layer', 'form', 'element'], function(){
         $(".gg").empty();//.gg是参数输入区的class
         cmd_name = ""
         args_arr.length = 0
+        args_danwei.length = 0
         
         $("#send_param_key").attr("name", "send_param_key");
         $("#send_param_label").text("默认:");

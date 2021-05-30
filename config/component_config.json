@@ -31,7 +31,7 @@
         },
         "命令携带参数测试": {
             "cmd": "cmd_name",
-            "input_args": "args1, args2"
+            "input_args": "args1/ms, args2/mg"
         }
     }
 }
