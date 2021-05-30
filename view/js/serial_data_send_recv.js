@@ -26,7 +26,8 @@ function js_recv(res_from_py){
     if (toggle == true) {
         oFont1.style.color="white"; 
     } else {
-        oFont1.style.color="green"; 
+        //oFont1.style.color="green"; 
+        oFont1.style.color="black"; 
     } 
 
     $("#res_echo").append(oFont1); 

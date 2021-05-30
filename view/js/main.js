@@ -188,13 +188,14 @@ layui.use(['layer', 'form', 'element'], function(){
             } else {
                 $('#res_echo_layui').css("background","white")
                 $('#res_echo').css("background","white")
-                $('#res_echo > font').css("color", "green")//上次的会无效，应该是没有重新渲染的原因,所以要用localStorage在生成dom元素的时候也要根据toggle设置颜色
+                //$('#res_echo > font').css("color", "green")//上次的会无效，应该是没有重新渲染的原因,所以要用localStorage在生成dom元素的时候也要根据toggle设置颜色
+                $('#res_echo > font').css("color", "black")//上次的会无效，应该是没有重新渲染的原因,所以要用localStorage在生成dom元素的时候也要根据toggle设置颜色
             }
             toggle = !toggle
             window.localStorage.setItem('blackground_toggle', JSON.stringify({flag: toggle}))
         } else if (3 == e.which) {
-            $("#res_echo").empty();
-            console.log("你点了回显区右键");
+            //$("#res_echo").empty();
+            console.log("你点了回显区右键111");
         }
     })
     
@@ -281,6 +282,25 @@ layui.use(['layer', 'form', 'element'], function(){
         let usart_data = $("#res_echo").text();//数据回显区 text()是剔除html标签获取内容
         console.log("usart_data:", usart_data)
         download_usart_data()
+    });
+    
+    //监听回显背景色切换按钮的点击事件
+    $('#set_color_usart_btn').on('click', function(){
+        console.log("blackground_toggle localStorage:", JSON.parse(window.localStorage.getItem('blackground_toggle')).flag)
+        toggle = JSON.parse(window.localStorage.getItem('blackground_toggle')).flag
+        console.log("你点了回显背景色切换按钮");
+        if (toggle == false) {
+            $('#res_echo_layui').css("background","black")
+            $('#res_echo').css("background","black")
+            $('#res_echo > font').css("color", "white")//上次的会无效，应该是没有重新渲染的原因,所以要用localStorage在生成dom元素的时候也要根据toggle设置颜色
+        } else {
+            $('#res_echo_layui').css("background","white")
+            $('#res_echo').css("background","white")
+            //$('#res_echo > font').css("color", "green")//上次的会无效，应该是没有重新渲染的原因,所以要用localStorage在生成dom元素的时候也要根据toggle设置颜色
+            $('#res_echo > font').css("color", "black")//上次的会无效，应该是没有重新渲染的原因,所以要用localStorage在生成dom元素的时候也要根据toggle设置颜色
+        }
+        toggle = !toggle
+        window.localStorage.setItem('blackground_toggle', JSON.stringify({flag: toggle}))
     });
 
     //全局绑定回车事件

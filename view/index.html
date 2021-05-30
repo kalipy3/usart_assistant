@@ -55,6 +55,11 @@
                             <button type="button" id="save_usart_data_btn" class="layui-btn" lay-submit lay-filter="save_usart_data_btn">保存数据</button>
                         </div>
                     </div>
+                    <div class="header_right">
+                        <div class="layui-input-block">
+                            <button type="button" id="set_color_usart_btn" class="layui-btn" lay-submit lay-filter="set_color_usart_btn">窗口背景色切换</button>
+                        </div>
+                    </div>
                 </div>
             </form>
 
@@ -79,7 +84,7 @@
                             <div class="paramInput_inner">
                                 <div class="paramInput_a" style="display: flex; flex: 6;">
                                     <div class="label" style="display: flex; flex: 1;"><label id="send_param_label" name="send_param_label" class="layui-form-label" style="width: auto; margin: 0 auto;">默认:</label></div>
-                                    <div class="gg" style="flex: 4; display: flex; background: antiquewhite;">
+                                    <div class="gg" style="flex: 4; display: flex; background: #d2d2d2;">
                                         <input type="text" name="send_param_key" id="send_param_key" args_separator="," key_value_separator="=" placeholder="请输入参数,回车执行(若该命令不需要参数，请直接点击执行即可)" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
