@@ -253,8 +253,8 @@ layui.use(['layer', 'form', 'element'], function(){
     //监听清空数据回显区按钮的点击事件
     $('#clear_usart_btn').on('click', function(){
         console.log("清空按钮被点击..")
-        $("#send_param_key").val("")
-        $("#res_echo").empty();
+        $("#send_param_key").val("")//数据发送区
+        $("#res_echo").empty();//数据回显区
     });
 
     //全局绑定回车事件
