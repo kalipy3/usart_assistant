@@ -29,18 +29,20 @@
     top: 39px;
     bottom: 0px;
     left: 0px;
-    background: pink;
+    background: #f2f2f2;
     display: flex;
 }
 
 .menu {
     background: blue;
     display: flex;
+    margin: 0 10px 0 0;
 }
 
 .paramInput {
     background: #d2d2d2;
-    margin: 0px 0px 10px 0px;
+    //margin: 0px 0px 10px 0px;
+    margin: 10px 10px 10px 0;
 }
 .paramInput_inner {
     display: flex;    
