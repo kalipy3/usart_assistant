@@ -352,6 +352,7 @@ layui.use(['layer', 'form', 'element'], function(){
                 await eel.py_write_component_config(updatedJson)();
                 
                 layer.close(index)
+                location.reload()//手动触发f5刷新(因为改了配置文件后，要更新左边的命令菜单和菜单项)
             }    
         });
         
