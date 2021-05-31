@@ -328,6 +328,44 @@ layui.use(['layer', 'form', 'element'], function(){
         }
     }
 
+    //监听命令配置按钮点击事件
+    $('#cmd_config_btn').on('click', async function(){
+        console.log("命令配置按钮被点击..")
+        
+        //弹出一个页面
+        let index = layer.open({
+            type: 1,
+            content: `<div id="jsoneditor" style="width: 800px; height: 800px;"></div>`, //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+            area: ['801px', '843px'],
+            cancel: async function(index){//弹窗关闭的回调 
+                //if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                //  layer.close(index)
+                //}
+                //return false; 
+                console.log("命令配置窗口关闭按钮被点击..")
+                
+                // get json
+                const updatedJson = editor.get()
+                console.log("修改后的配置json数据:", updatedJson)
+
+                //把updatedJson传递给python
+                await eel.py_write_component_config(updatedJson)();
+                
+                layer.close(index)
+            }    
+        });
+        
+        // create the editor
+        const container = document.getElementById("jsoneditor")
+        const options = {}
+        const editor = new JSONEditor(container, options)
+
+        // set json
+        let json_obj = await eel.py_read_component_config()();
+        
+        editor.set(json_obj)
+    });
+
     //全局绑定回车事件
     document.onkeydown = function(e)
     {

@@ -43,3 +43,12 @@ def py_read_component_config():
     print('component_config.json已存在，将默认使用component_config.json文件')
     return component_config_json
 #----------------------------------------------------------------------------------------------------------
+
+#----------------------------------------------------------------------------------------------------------
+# 写component_config.json中的功能控件配置
+@eel.expose #把py_write_component_config暴露给js
+def py_write_component_config(res_from_js):
+    print(res_from_js)
+    with open('config/component_config.json', 'w') as fp:
+        fp.write(json.dumps(res_from_js,indent=4,ensure_ascii=False))
+#----------------------------------------------------------------------------------------------------------

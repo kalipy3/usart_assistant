@@ -6,7 +6,9 @@
         <meta name="viewport" content="width=375,user-scalable=no" />
         <script type="text/javascript" src="/eel.js"></script>
         <link rel="stylesheet" type="text/css" href="./css/style.css">
+        <link rel="stylesheet" type="text/css" href="./css/jsoneditor.css">
         <link rel="stylesheet" href="./layui/css/layui.css">
+        <script src="./js/jsoneditor.js"></script>
     </head>
     <body>
         <div>
@@ -43,6 +45,11 @@
                     <div class="header_right">
                         <div class="layui-input-block">
                             <button id="open_usart_btn" class="layui-btn" lay-submit lay-filter="open_usart_btn">打开串口</button>
+                        </div>
+                    </div>
+                    <div class="header_right">
+                        <div class="layui-input-block">
+                            <button type="button" id="cmd_config_btn" class="layui-btn" lay-submit lay-filter="cmd_config_btn">命令配置</button>
                         </div>
                     </div>
                     <div class="header_right">
