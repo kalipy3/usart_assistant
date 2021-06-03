@@ -367,6 +367,11 @@ layui.use(['layer', 'form', 'element'], function(){
         editor.set(json_obj)
     });
 
+    //监听窗口大小改变事件
+    window.onresize = function() {
+        
+    }
+
     //全局绑定回车事件
     document.onkeydown = function(e)
     {
