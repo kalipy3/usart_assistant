@@ -56,9 +56,9 @@ def recv_thread_handler():
         
         data =recv(g_serial)
         if data != b'' :
-            print("receive:", data.decode("utf-8"))
+            print("receive:", data.decode("utf-8","ignore"))
             #js_fun('python传过去的参数')
-            eel.js_recv(data.decode("utf-8"))
+            eel.js_recv(data.decode("utf-8","ignore"))
 
         mutex.release()
     

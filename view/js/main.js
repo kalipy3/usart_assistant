@@ -51,7 +51,8 @@ layui.use(['layer', 'form', 'element'], function(){
             let str ="";
             //如果input标签是"默认:",即cmd_name是默认的send_param_key
             if (cmd_name_label == "send_param_key") {
-                str = input_container;
+                //str = input_container;
+                str = input_container + "\r\n";
             }
             //如果input_container为空，表示该命令没有input_args
             else if (input_container == undefined) {
