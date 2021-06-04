@@ -455,11 +455,23 @@ layui.use(['layer', 'form', 'element'], function(){
             return false;
         }
     }
+    
+    //选项卡tab切换的一些事件触发
+    element.on('tab(demo)', function(data){
+        console.log("选项卡tab切换的一些事件触发", data);
+        if (data.index == 0) {
+            document.title="串口助手"
+        } else if (data.index == 1) {
+            document.title="websocket测试"
+        } else if (data.index == 2) {
+            document.title="postman测试"
+        }
+    });
 
 
     js_get_all_port();
     js_get_component_config();
-    
+
     //设置页面title为串口助手
     document.title="串口助手"
 });

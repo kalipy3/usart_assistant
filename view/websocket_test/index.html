@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="renderer" content="webkit" />
+        <title>websocket测试</title>
+        <link rel="stylesheet" href="../layui/css/layui.css">
+        <link href="css/bootstrap3.5min.css" rel="stylesheet" type="text/css" />
+        <link href="css/mainmin.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col10main">
+                    <div class="accordion" id="accordion2">
+                        <div class="accordion-group">
+                            <div class="panel">
+                                <form id="form1help" class="form-horizontal" action="/websocket/" method="post">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input class="form-control" id="wsaddr" name="wsaddr" type="text" placeholder="请输入要检测的Websocket地址，例如：ws://localhost:8080/wssajax" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input type="button" onclick="addsocket();" value="Websocket连接" class="btn btn-success">
+                                            <input type="button" onclick="closesocket();" value="断开连接" class="btn btn-warning">
+                                            <input type="button" onclick="Empty();" value="清空回显框" class="btn btn-danger">
+                                            <input type="button" onclick="download_ws_data();" value="保存回显数据" class="btn btn-success">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" id="message" class="form-control" placeholder="请输入测试消息" onkeydown="en(event);">
+                                        <span class="input-group-btn" style="padding: 0 0 0 7px;">
+                                            <button class="btn btn-success" type="button" onclick="doSend();">
+                                                发送消息</button>
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <div id="output" style="border: 1px solid #ccc; height: 360px; overflow: auto;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../layui/layui.js"></script>
+        <script src="js/my_layui.js" type="text/javascript"></script>
+        <script src="js/jquery-1.11.3.min.js?20190731" type="text/javascript"></script>
+        <script src="js/bootstrap3.5min.js" type="text/javascript"></script>
+        <script src="js/clipboard.min.js" type="text/javascript"></script>
+        <script src="js/websocket.js" type="text/javascript"></script>
+        <script src="js/mainjs.js" type="text/javascript"></script>
+    </body>
+</html>
