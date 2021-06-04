@@ -33,5 +33,67 @@
             "cmd": "cmd_name",
             "input_args": "args1/ms, args2/mg"
         }
+    },
+    "NB-iot:": {
+        "单条命令测试:": {
+            "模块重启": {
+                "cmd": "AT+NRB"
+            },
+            "设置为全功率": {
+                "cmd": "AT+CFUN=1"
+            },
+            "设置为最小功耗": {
+                "cmd": "AT+CFUN=0"
+            },
+            "查询当前功耗级别": {
+                "cmd": "AT+CFUN?"
+            },
+            "设置错误指示器": {
+                "cmd": "AT+CMEE=1"
+            },
+            "失能华为云平台": {
+                "cmd": "AT+QREGSWT=2"
+            },
+            "附着网络": {
+                "cmd": "AT+CGATT=1"
+            },
+            "获取附着状态": {
+                "cmd": "AT+CGATT?"
+            },
+            "清除载波频点号": {
+                "cmd": "AT+NCSEARFCN"
+            },
+            "设置消息指示器": {
+                "cmd": "AT+NSONMI=2"
+            },
+            "获取信号质量": {
+                "cmd": "AT+CSQ"
+            },
+            "获取IMEI": {
+                "cmd": "AT+CGSN=1"
+            },
+            "获取模块IP": {
+                "cmd": "AT+CGPADDR"
+            },
+            "创建TCP套接字": {
+                "cmd": "AT+NSOCR=STREAM,6,8888"
+            }
+        },
+        "连接服务器测试:": {
+            "TCP连接测试": {
+                "cmd": ""
+            },
+            "UDP连接测试": {
+                "cmd": "AT+CFUN?##AT+CIMI##AT+CSQ##AT+CEREG?##AT+CGPADDR##AT+NSOCR=DGRAM,17,8888,1"
+            }
+        },
+        "数据收发测试:": {
+            "发送测试": {
+                "cmd": "AT+NSOST=1,123.57.44.108,8888,2,ABCD"
+            },
+            "接收测试": {
+                "cmd": "AT+NSORF=1,256"
+            }
+        }
     }
 }

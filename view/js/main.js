@@ -17,21 +17,42 @@ layui.use(['layer', 'form', 'element'], function(){
     window.args_arr = [] 
     window.args_danwei = [] 
 
-    function echo_data(){
+    async function echo_data(){
         //取出input_container 
         var input_container=$("#send_param_key").val();
         var cmd_name_label = $("#send_param_key").attr("name");
 
         //保存构造好的将要发送的串口数据
-        var str ="";
+        let str ="";
+        let cmd_names_arr = []
+        cmd_names_arr = cmd_name.split("##")
+        console.log("cmd_names_arr:", cmd_names_arr)
+
         //如果input标签是"默认:",即cmd_name是默认的send_param_key
         if (cmd_name_label == "send_param_key") {
-            str = input_container;
+            //str = input_container;
+            str = input_container + "\r\n";
         }
-        //如果input_container为空，表示该命令没有input_args
-        else if (input_container == undefined) {
+        //如果input_container为空，表示该命令没有input_args并且长度等于1，即不存在`##`命令连接符号
+        else if (input_container == undefined && cmd_names_arr.length == 1) {
             //str = "\r\n{cmd=>" +'"'+ cmd_name +'"' + "}\r\n"
             str = "\r\n" + cmd_name + "\r\n"
+        } else if (input_container == undefined && cmd_names_arr.length > 1) {//存在`##`命令连接符号
+            layer.msg("正在测试:" + cmd_name);
+            for (let i=0; i<cmd_names_arr.length; i++) {
+                //用户按enter回车时，就不要用res_echo写入"正在测试:" + cmd_names_arr[i]了,速度更快
+                //layer.msg("正在测试:" + cmd_names_arr[i]);
+                //向res_echo写入内容(代替layer.msg("正在测试:" + cmd_names_arr[i]))------------------------
+                
+                js_send_data(cmd_names_arr[i] + "\r\n");
+                //"cmd": "AT+CFUN?##AT+CIMI##AT+CSQ##AT+CEREG?##AT+CGPADDR##AT+NPING=223.5.5.5##AT+NSOCR=DGRAM,17,8888,1"
+                if (cmd_names_arr[i].includes("AT+NPING")) {//对响应时间比较长的命令也延时长一点
+                    await my_delay(2000)
+                } else {
+                    await my_delay(200)
+                }
+            }
+            return;
         }
         
         layer.msg(str);
@@ -40,7 +61,14 @@ layui.use(['layer', 'form', 'element'], function(){
         return false;
     }
 
-    function echo_data_with_input_args(){
+    //同步延时
+    function my_delay(ms) {
+        return new Promise(function(resolve, reject) {
+            setTimeout(resolve, ms)
+        })
+    }
+
+    async function echo_data_with_input_args(){
         //如果input标签是"默认:",即cmd_name是默认的send_param_key
         if (args_arr.length == 0) {
             //取出input_container 
@@ -49,21 +77,59 @@ layui.use(['layer', 'form', 'element'], function(){
 
             //保存构造好的将要发送的串口数据
             let str ="";
+            let cmd_names_arr = []
+            cmd_names_arr = cmd_name.split("##")
+            console.log("cmd_names_arr:", cmd_names_arr)
+
             //如果input标签是"默认:",即cmd_name是默认的send_param_key
             if (cmd_name_label == "send_param_key") {
                 //str = input_container;
                 str = input_container + "\r\n";
             }
-            //如果input_container为空，表示该命令没有input_args
-            else if (input_container == undefined) {
+            //如果input_container为空，表示该命令没有input_args并且长度等于1，即不存在`##`命令连接符号
+            else if (input_container == undefined && cmd_names_arr.length == 1) {
                 //str = "\r\n{cmd=>" +'"'+ cmd_name +'"' + "}\r\n"
                 str = "\r\n" + cmd_name + "\r\n"
-            }
-            
-            layer.msg(str);
+            } else if (input_container == undefined && cmd_names_arr.length > 1) {//存在`##`命令连接符号
+                    layer.msg("正在测试:" + cmd_name);
+                for (let i=0; i<cmd_names_arr.length; i++) {
+                    //layer.msg("正在测试:" + cmd_names_arr[i]);
+                    //向res_echo写入内容(代替layer.msg("正在测试:" + cmd_names_arr[i]))------------------------
+                    var oFont1=document.createElement("FONT"); 
+                    var pre=document.createElement("pre");
+                    //被<pre></pre>包围的res_from_py等text中的"\r\n"等特殊字符才会被浏览器识别
+                    var oText1=document.createTextNode("正在测试:" + cmd_names_arr[i]); 
+                    let toggle = JSON.parse(window.localStorage.getItem('blackground_toggle')).flag
+                    if (toggle == true) {
+                        oFont1.style.color="white"; 
+                    } else {
+                        oFont1.style.color="black"; 
+                    } 
+                    $("#res_echo").append(oFont1); 
+                    oFont1.appendChild(pre); 
+                    pre.appendChild(oText1); 
+                    oFont1.appendChild(pre);
+                    var ele = document.getElementById('res_echo_layui');
+                    ele.scrollTop = ele.scrollHeight;
+                    //向res_echo写入内容完毕------------------------
 
-            js_send_data(str);
-            return false;
+                    
+                    js_send_data(cmd_names_arr[i] + "\r\n");
+                    //"cmd": "AT+CFUN?##AT+CIMI##AT+CSQ##AT+CEREG?##AT+CGPADDR##AT+NPING=223.5.5.5##AT+NSOCR=DGRAM,17,8888,1"
+                    if (cmd_names_arr[i].includes("AT+NPING")) {//对响应时间比较长的命令也延时长一点
+                        await my_delay(2000)
+                    } else {
+                        //await my_delay(200)
+                        await my_delay(2000)//向res_echo写入提示信息`"正在测试:" + cmd_names_arr[i]`时，不能延时200ms这么短时间，不然提示信息会瞬间显示完
+                    }
+                }
+                return;
+        }
+        
+        layer.msg(str);
+
+        js_send_data(str);
+        return false;
         }
 
         //input_args参数校验
