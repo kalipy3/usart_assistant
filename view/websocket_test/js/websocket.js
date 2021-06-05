@@ -14,13 +14,58 @@ function init() {
     testWebSocket();
 }
 
+window.onload=function(){ 
+    get_localStorage_data()
+    get_localStorage_data_of_send_msg()
+} 
+var input_select_wsaddrs = []
+var input_select_wsmsgs = []
 function addsocket() {
     var wsaddr = $("#wsaddr").val();
     if (wsaddr == '') {
         JsonsMessageBox($("#wsaddr"), "请填写Websocket测试地址");
         return false;
     }
+    update_localStorage_data()
+
     StartWebSocket(wsaddr);
+}
+function my_trim(str){ //删除左右两端的空格
+    return (str+"").replace(/(^\s*)|(\s*$)/g, "");
+}
+function update_localStorage_data() {
+    $("#wsaddr").editableSelect('clear')
+    
+    //update
+    if(!input_select_wsaddrs.includes(my_trim($("#wsaddr").val()))) {
+        input_select_wsaddrs.push(my_trim($("#wsaddr").val()))
+        window.localStorage.setItem("localStorage_input_select_wsaddr", JSON.stringify(input_select_wsaddrs));
+        get_localStorage_data()
+        console.log("update:", JSON.parse(window.localStorage.getItem("localStorage_input_select_wsaddr")));
+    } else {
+        get_localStorage_data()
+    }
+}
+function get_localStorage_data() {//mounted时调用
+    if (window.localStorage.getItem("localStorage_input_select_wsaddr") != undefined && window.localStorage.getItem("localStorage_input_select_wsaddr").length != 0) {
+        let wsaddrs = JSON.parse(window.localStorage.getItem("localStorage_input_select_wsaddr"));
+
+        if (input_select_wsaddrs.length == 0) {
+            for (let i=0; i<wsaddrs.length; i++) {
+                input_select_wsaddrs.push(wsaddrs[i])
+            }
+        }
+
+        for (var i=wsaddrs.length-1; i>=0; i--) {
+            //作为option加入到select
+            //$('#wsaddr').append(`<option value="`+ wsaddrs[i] +`">`+ wsaddrs[i] +`</option>`)
+            $("#wsaddr").editableSelect('add', function () {
+                                $(this).val(wsaddrs[i]);
+                                $(this).text(wsaddrs[i]);
+                            });//add绑定添加上value txt
+        }
+        console.log(JSON.parse(window.localStorage.getItem("localStorage_input_select_wsaddr")));
+    }
 }
 
 function closesocket() {
@@ -63,6 +108,7 @@ function onError(evt) {
     }
     writeToScreen('<span style="color: red;">发生错误:</span> ' + evt.data);
 }
+
 function doSend() {
     var message = $("#message").val();
     if (message == '') {
@@ -79,10 +125,49 @@ function doSend() {
         JsonsMessageBox($("#message"), "Websocket已经关闭，请重新连接");
         return false;
     }
+    
+    update_localStorage_data_of_send_msg()
+    
     $("#message").val('');
     writeToScreen('<span style="color:green">你发送的信息&nbsp;' + formatDate(new Date()) + '</span><br/>' + "\r\n" +  message + "\r\n");
     websocket.send(message);
 }
+function update_localStorage_data_of_send_msg() {
+    $("#message").editableSelect('clear')
+    
+    //update
+    if(!input_select_wsmsgs.includes(my_trim($("#message").val()))) {
+        input_select_wsmsgs.push(my_trim($("#message").val()))
+        window.localStorage.setItem("localStorage_input_select_wsaddr_of_send_msg", JSON.stringify(input_select_wsmsgs));
+        get_localStorage_data_of_send_msg()
+        console.log("update:", JSON.parse(window.localStorage.getItem("localStorage_input_select_wsaddr_of_send_msg")));
+    } else {
+        get_localStorage_data_of_send_msg()
+    }
+}
+function get_localStorage_data_of_send_msg() {//mounted时调用
+    if (window.localStorage.getItem("localStorage_input_select_wsaddr_of_send_msg") != undefined && window.localStorage.getItem("localStorage_input_select_wsaddr_of_send_msg").length != 0) {
+        let wsmsgs = JSON.parse(window.localStorage.getItem("localStorage_input_select_wsaddr_of_send_msg"));
+
+        if (input_select_wsmsgs.length == 0) {
+            for (let i=0; i<wsmsgs.length; i++) {
+                input_select_wsmsgs.push(wsmsgs[i])
+            }
+        }
+
+        for (var i=wsmsgs.length-1; i>=0; i--) {
+            $("#message").editableSelect('add', function () {
+                                $(this).val(wsmsgs[i]);
+                                $(this).text(wsmsgs[i]);
+                            });//add绑定添加上value txt
+        }
+        console.log(JSON.parse(window.localStorage.getItem("localStorage_input_select_wsaddr_of_send_msg")));
+    }
+}
+
+
+
+
 function writeToScreen(message) {
     var div = "<div>" + "\r\n" +  message + "</div>";
     var d = $("#output");
