@@ -22,4 +22,5 @@ eel.init('view')
 my_global.init()
 
 # 启动的函数调用放在最后,port=0表示使用随机端口,size=(宽,高)
-eel.start('index.html', port=0, size=(600,300))
+eel.start('index.html', port=8888, cmdline_args=['--disable-web-security', '--user-data-dir=/home/kalipy/gg/ggggggg_usartassist'], size=(600,300))
+#eel.start('index.html', port=8888, size=(600,300))

@@ -464,7 +464,7 @@ layui.use(['layer', 'form', 'element'], function(){
         } else if (data.index == 1) {
             document.title="websocket测试"
         } else if (data.index == 2) {
-            document.title="postman测试"
+            document.title="postwoman测试"
         }
     });
 
