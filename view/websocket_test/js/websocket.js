@@ -136,7 +136,8 @@ function update_localStorage_data_of_send_msg() {
     $("#message").editableSelect('clear')
     
     //update
-    if(!input_select_wsmsgs.includes(my_trim($("#message").val()))) {
+    //if(!input_select_wsmsgs.includes(my_trim($("#message").val()))) {//去重复
+    if(1 == 1) {//不去重复
         input_select_wsmsgs.push(my_trim($("#message").val()))
         window.localStorage.setItem("localStorage_input_select_wsaddr_of_send_msg", JSON.stringify(input_select_wsmsgs));
         get_localStorage_data_of_send_msg()
@@ -177,6 +178,8 @@ function writeToScreen(message) {
     if (doScroll) {
         d.scrollTop = d.scrollHeight - d.clientHeight;
     }
+    var ele = document.getElementById('output')
+    ele.scrollTop = ele.scrollHeight
 }
 function en(event) {
     var evt = evt ? evt : (window.event ? window.event : null);

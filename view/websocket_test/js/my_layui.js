@@ -45,7 +45,7 @@ layui.use(['layer', 'form', 'element'], function(){
     })
     $("#message").editableSelect({
         effects: 'slide',
-        filter: true
+        filter: false
     })
     
     //监听刷新事件
